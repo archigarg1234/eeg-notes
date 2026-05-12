@@ -1,0 +1,5 @@
+title: "EEG Notes"
+author: "Archi"
+logo: ""
+execute:
+  execute_notebooks: "off"   # use "off" to show existing outputs, "auto" to re-run

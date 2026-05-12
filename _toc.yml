@@ -1,0 +1,4 @@
+format: jb-book
+root: intro
+chapters:
+- file: band_power_lecture
