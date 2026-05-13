@@ -67,6 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'band_power_lecture';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="1. Historical Context of EEG" href="Artifact_rejection.html" />
     <link rel="prev" title="&lt;no title&gt;" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -170,6 +171,24 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Band Power: EEG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Artifact_rejection.html">1. Historical Context of EEG</a></li>
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Intro_to_Signals.html">Introduction to Signals &amp; Signal Processing</a></li>
+
+
+
+
+
+
+
+
+
+
+
 </ul>
 
     </div>
@@ -335,8 +354,6 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-welch-psd-brainbit-vs-calmsync-fp1">4b · Welch PSD — BrainBit vs CalmSync (Fp1)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-wavelet-psd-brainbit-vs-calmsync-fp1">4c · Wavelet PSD — BrainBit vs CalmSync (Fp1)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-hilbert-time-resolved-band-power-first-30-seconds">4d · Hilbert — Time-Resolved Band Power (first 30 seconds)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-grand-comparison-band-power-bar-charts-both-devices-both-channels">4e · Grand Comparison — Band Power Bar Charts (Both Devices, Both Channels)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-relative-band-power-normalised-pie-charts">4f · Relative Band Power (Normalised Pie Charts)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-method-cheat-sheet">5 · Summary &amp; Method Cheat Sheet</a><ul class="nav section-nav flex-column">
@@ -474,10 +491,10 @@ document.write(`
 <section id="a-fft-the-foundation">
 <h3>2a · FFT — The Foundation<a class="headerlink" href="#a-fft-the-foundation" title="Permalink to this heading">#</a></h3>
 <blockquote>
-<div><p><strong>Idea:</strong> Decompose the entire signal into its constituent frequencies using the Discrete Fourier Transform.
-<strong>Pros:</strong> Direct, no parameters to tune, shows you exactly what frequencies are present.<br />
-<strong>Cons:</strong> Noisy (high variance) — a single FFT of a noisy signal gives a jagged spectrum.</p>
+<div><p><strong>Idea:</strong> DFast Fourier Transform (FFT) is an efficient algorithm that decomposes a time-domain signal into its constituent complex sinusoidal components by computing the discrete correlation (inner product) between the signal and complex exponentials e^(i2πft) at each frequency bin. The resulting complex coefficients encode both the amplitude and phase of each frequency component present in the signal</p>
 </div></blockquote>
+<p><strong>Pros:</strong> Direct, no parameters to tune, shows you exactly what frequencies are present.<br />
+<strong>Cons:</strong> Entire signal treated as one epoch.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Raw FFT (periodogram) on the pure 10 Hz sine ────────────────────────────</span>
@@ -539,10 +556,11 @@ document.write(`
 </div></blockquote>
 <p><strong>Pros:</strong> Simple, robust, smooth estimate.<br />
 <strong>Cons:</strong> No time resolution — gives you one spectrum for the whole segment.</p>
+<p>Parameters: nperseg , nooverlap</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Welch on a pure 10 Hz sine ───────────────────────────────────────────────</span>
-<span class="n">freqs_w</span><span class="p">,</span> <span class="n">psd_w</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">freqs_w</span><span class="p">,</span> <span class="n">psd_w</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -550,7 +568,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Welch on a pure 10 Hz sine ───────────────────────────────────────────────</span>
-<span class="n">freqs_w</span><span class="p">,</span> <span class="n">psd_w</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">freqs_w</span><span class="p">,</span> <span class="n">psd_w</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">960</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">480</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">freqs_w</span><span class="p">,</span> <span class="n">psd_w</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">C_ALPHA</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -566,12 +584,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/502a7ae47bcee526ccc84d0642db684f0b95a27f386bc192922fa3764f0d5278.png" src="_images/502a7ae47bcee526ccc84d0642db684f0b95a27f386bc192922fa3764f0d5278.png" />
+<img alt="_images/59406ddbfa1bef7cec2ecbe5089e3abcbdbef151ad2c3a32d463046d3bc4a2c6.png" src="_images/59406ddbfa1bef7cec2ecbe5089e3abcbdbef151ad2c3a32d463046d3bc4a2c6.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  → Sharp peak exactly at 10 Hz. Welch correctly finds all the power there.
 </pre></div>
 </div>
 </div>
 </div>
+<p>Example: At 240 Hz, a 2-second segment = 480 samples. To detect 0.1 Hz, you’d need 10 seconds of data (one full cycle) — but your window is only 2 seconds. The lowest frequency you can resolve is 1 / 2s = 0.5 Hz.</p>
 </section>
 <section id="c-hilbert-transform-instantaneous-power">
 <h3>2c · Hilbert Transform (instantaneous power)<a class="headerlink" href="#c-hilbert-transform-instantaneous-power" title="Permalink to this heading">#</a></h3>
@@ -580,7 +599,7 @@ document.write(`
 Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong> within that band.</p>
 </div></blockquote>
 <p><strong>Pros:</strong> Time-resolved — you can see power fluctuate moment by moment.<br />
-<strong>Cons:</strong> Requires bandpass filtering first (choice of band is baked in).</p>
+<strong>Cons:</strong> Requires bandpass filtering first.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Hilbert on the same 10 Hz sine ───────────────────────────────────────────</span>
@@ -652,6 +671,12 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  → Morlet wavelet also finds the 10 Hz peak. Width of the peak reflects the time-frequency trade-off.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b0fd151add4909bf305c7bbc9b14cbe6c3c29ebc047297ee222f71e9f40f6386.png" src="_images/b0fd151add4909bf305c7bbc9b14cbe6c3c29ebc047297ee222f71e9f40f6386.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  → Morlet wavelet also finds the 10 Hz peak. Width of the peak reflects the time-frequency trade-off.
 </pre></div>
 </div>
 </div>
@@ -819,6 +844,9 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3f5e01f5b5b75a689a293eaf519098e1c6fec69f42162564050b9cdb6af62fd0.png" src="_images/3f5e01f5b5b75a689a293eaf519098e1c6fec69f42162564050b9cdb6af62fd0.png" />
 </div>
 </div>
 <p><strong>Key takeaway:</strong> All four methods find the alpha peak at 10 Hz and theta at 6 Hz — exactly what we planted. The bar chart shows they agree on band power values. Now let’s see what happens with <strong>real brain data</strong>.</p>
@@ -1034,6 +1062,9 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/c8d6fcaef56d3b99ef31a1c954942838c1b8908b2c3150db0834bac0828c882a.png" src="_images/c8d6fcaef56d3b99ef31a1c954942838c1b8908b2c3150db0834bac0828c882a.png" />
+</div>
 </div>
 </section>
 <section id="d-hilbert-time-resolved-band-power-first-30-seconds">
@@ -1083,90 +1114,6 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/9ec8fc397e41eee94563654b8fb956b1d9143cbeef16f0c1097ef85edc7e1714.png" src="_images/9ec8fc397e41eee94563654b8fb956b1d9143cbeef16f0c1097ef85edc7e1714.png" />
-</div>
-</div>
-</section>
-<section id="e-grand-comparison-band-power-bar-charts-both-devices-both-channels">
-<h3>4e · Grand Comparison — Band Power Bar Charts (Both Devices, Both Channels)<a class="headerlink" href="#e-grand-comparison-band-power-bar-charts-both-devices-both-channels" title="Permalink to this heading">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Grand comparison: band power across devices, channels, methods ───────────</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;BrainBit Fp1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">bb_fp1</span><span class="p">,</span> <span class="n">bb_fs</span><span class="p">),</span>
-    <span class="s1">&#39;BrainBit Fp2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">bb_fp2</span><span class="p">,</span> <span class="n">bb_fs</span><span class="p">),</span>
-    <span class="s1">&#39;CalmSync Fp1&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">cs_fp1</span><span class="p">,</span> <span class="n">cs_fs</span><span class="p">),</span>
-    <span class="s1">&#39;CalmSync Fp2&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">cs_fp2</span><span class="p">,</span> <span class="n">cs_fs</span><span class="p">),</span>
-<span class="p">}</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">method_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Welch&#39;</span><span class="p">,</span> <span class="s1">&#39;Wavelet&#39;</span><span class="p">,</span> <span class="s1">&#39;Hilbert&#39;</span><span class="p">]</span>
-<span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BANDS</span><span class="p">))</span>
-<span class="n">width</span> <span class="o">=</span> <span class="mf">0.18</span>
-
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">method</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">method_names</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs_dev</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-        <span class="n">powers</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">bname</span><span class="p">,</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="ow">in</span> <span class="n">BANDS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;Welch&#39;</span><span class="p">:</span>
-                <span class="n">f</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs_dev</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-                <span class="n">powers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bandpower_from_psd</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;Wavelet&#39;</span><span class="p">:</span>
-                <span class="n">f</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">wavelet_psd</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs_dev</span><span class="p">,</span> <span class="n">freqs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
-                <span class="n">powers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bandpower_from_psd</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">powers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hilbert_band_power</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs_dev</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="n">powers</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">dname</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="n">b</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">BANDS</span><span class="o">.</span><span class="n">keys</span><span class="p">()],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Band Power (µV²) — log scale&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Band Power: BrainBit vs CalmSync — Three Methods&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="f-relative-band-power-normalised-pie-charts">
-<h3>4f · Relative Band Power (Normalised Pie Charts)<a class="headerlink" href="#f-relative-band-power-normalised-pie-charts" title="Permalink to this heading">#</a></h3>
-<p>Sometimes absolute power differs wildly between devices (different amplifiers, ADC scales). <strong>Relative band power</strong> (each band as % of total) lets us compare the spectral <em>shape</em> fairly.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Relative band power pie charts ────────────────────────────────────────────</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">BAND_COLORS</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-<span class="n">band_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">BANDS</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
-
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs_dev</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-    <span class="n">f</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs_dev</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
-    <span class="n">powers</span> <span class="o">=</span> <span class="p">[</span><span class="n">bandpower_from_psd</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="ow">in</span> <span class="n">BANDS</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
-    <span class="n">total</span>  <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">powers</span><span class="p">)</span>
-    <span class="n">pcts</span>   <span class="o">=</span> <span class="p">[</span><span class="mi">100</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">/</span> <span class="n">total</span> <span class="k">for</span> <span class="n">pw</span> <span class="ow">in</span> <span class="n">powers</span><span class="p">]</span>
-
-    <span class="n">wedges</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">autotexts</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span>
-        <span class="n">pcts</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">band_labels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.0f%%</span><span class="s1">&#39;</span><span class="p">,</span>
-        <span class="n">startangle</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">textprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>
-        <span class="n">wedgeprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;edgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="s1">&#39;linewidth&#39;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">}</span>
-    <span class="p">)</span>
-    <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">autotexts</span><span class="p">:</span>
-        <span class="n">at</span><span class="o">.</span><span class="n">set_fontsize</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-        <span class="n">at</span><span class="o">.</span><span class="n">set_fontweight</span><span class="p">(</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Relative Band Power (Welch)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/a5a80bb3339b47ad0b9a8576b4ca7c089405915eba8c22341a929651a2ca08c9.png" src="_images/a5a80bb3339b47ad0b9a8576b4ca7c089405915eba8c22341a929651a2ca08c9.png" />
 </div>
 </div>
 </section>
@@ -1261,6 +1208,15 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
         <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
     </a>
+    <a class="right-next"
+       href="Artifact_rejection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Historical Context of EEG</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1294,8 +1250,6 @@ Bandpass-filter first, then apply Hilbert to get power <strong>over time</strong
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b-welch-psd-brainbit-vs-calmsync-fp1">4b · Welch PSD — BrainBit vs CalmSync (Fp1)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-wavelet-psd-brainbit-vs-calmsync-fp1">4c · Wavelet PSD — BrainBit vs CalmSync (Fp1)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d-hilbert-time-resolved-band-power-first-30-seconds">4d · Hilbert — Time-Resolved Band Power (first 30 seconds)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#e-grand-comparison-band-power-bar-charts-both-devices-both-channels">4e · Grand Comparison — Band Power Bar Charts (Both Devices, Both Channels)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#f-relative-band-power-normalised-pie-charts">4f · Relative Band Power (Normalised Pie Charts)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-method-cheat-sheet">5 · Summary &amp; Method Cheat Sheet</a><ul class="nav section-nav flex-column">

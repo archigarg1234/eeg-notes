@@ -2,3 +2,5 @@ format: jb-book
 root: intro
 chapters:
 - file: band_power_lecture
+- file: Artifact_rejection
+- file: Intro_to_Signals
