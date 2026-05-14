@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>1. Historical Context of EEG &#8212; EEG Notes</title>
+    <title>Artifact Rejection &#8212; EEG Notes</title>
   
   
   
@@ -67,8 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'Artifact_rejection';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to Signals &amp; Signal Processing" href="Intro_to_Signals.html" />
-    <link rel="prev" title="Band Power: EEG" href="band_power_lecture.html" />
+    <link rel="prev" title="Band Power: EEG |FFT| Welch| Hilbert" href="band_power_lecture.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -170,13 +169,6 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="band_power_lecture.html">Band Power: EEG</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Historical Context of EEG</a></li>
-
-
-
-
-
 <li class="toctree-l1"><a class="reference internal" href="Intro_to_Signals.html">Introduction to Signals &amp; Signal Processing</a></li>
 
 
@@ -185,6 +177,12 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="band_power_lecture.html">Band Power: EEG |FFT| Welch| Hilbert</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Artifact Rejection</a></li>
 
 
 
@@ -327,7 +325,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1. Historical Context of EEG</h1>
+    <h1>Artifact Rejection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -337,11 +335,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Historical Context of EEG</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Artifact Rejection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-context-of-eeg">1. Historical Context of EEG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -378,29 +379,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="historical-context-of-eeg">
-<h1>1. Historical Context of EEG<a class="headerlink" href="#historical-context-of-eeg" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="artifact-rejection">
+<h1>Artifact Rejection<a class="headerlink" href="#artifact-rejection" title="Permalink to this heading">#</a></h1>
+<section id="historical-context-of-eeg">
+<h2>1. Historical Context of EEG<a class="headerlink" href="#historical-context-of-eeg" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <ul class="simple">
 <li><p><strong>1929:</strong> Hans Berger recorded the first human <strong>electroencephalogram (EEG)</strong>, discovering the alpha wave.</p></li>
 <li><p><strong>1960s:</strong> The <strong>computerization</strong> of EEG</p></li>
 </ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="introduction-to-eeg-signals">
-<h1>2. Introduction to EEG Signals<a class="headerlink" href="#introduction-to-eeg-signals" title="Permalink to this heading">#</a></h1>
+<section id="introduction-to-eeg-signals">
+<h2>2. Introduction to EEG Signals<a class="headerlink" href="#introduction-to-eeg-signals" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <section id="what-is-eeg">
-<h2>What is EEG?<a class="headerlink" href="#what-is-eeg" title="Permalink to this heading">#</a></h2>
+<h3>What is EEG?<a class="headerlink" href="#what-is-eeg" title="Permalink to this heading">#</a></h3>
 <p>EEG signals are inherently <strong>non-stationary</strong>, meaning their statistical properties (like mean and variance) change over time.</p>
 <blockquote>
 <div><p><strong>Definition:</strong> Electroencephalography is the measurement, amplification, and registration of fluctuating electrical fields produced by the brain as a function of time.</p>
 </div></blockquote>
 <section id="the-spatio-temporal-trade-off">
-<h3>The Spatio-Temporal Trade-off<a class="headerlink" href="#the-spatio-temporal-trade-off" title="Permalink to this heading">#</a></h3>
+<h4>The Spatio-Temporal Trade-off<a class="headerlink" href="#the-spatio-temporal-trade-off" title="Permalink to this heading">#</a></h4>
 <p>EEG is characterized by its <strong>high temporal resolution</strong> (capturing changes in milliseconds) but lacks <strong>spatial resolution</strong> (difficulty pinpointing the exact cortical source of a signal).</p>
 </section>
 <section id="eeg-artifacts">
-<h3>EEG Artifacts<a class="headerlink" href="#eeg-artifacts" title="Permalink to this heading">#</a></h3>
+<h4>EEG Artifacts<a class="headerlink" href="#eeg-artifacts" title="Permalink to this heading">#</a></h4>
 <p>The primary challenge in EEG analysis is the presence of <strong>artifacts</strong>—signals not originating from the brain. Common examples include:</p>
 <ul class="simple">
 <li><p><strong>Eyeblinks</strong></p></li>
@@ -467,6 +470,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -856,17 +860,8 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Band Power: EEG</p>
+        <p class="prev-next-title">Band Power: EEG |FFT| Welch| Hilbert</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="Intro_to_Signals.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to Signals &amp; Signal Processing</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -884,11 +879,14 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Historical Context of EEG</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Artifact Rejection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-context-of-eeg">1. Historical Context of EEG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
