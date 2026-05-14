@@ -6,6 +6,7 @@ A collection of interactive notebooks covering signal processing fundamentals an
 
 - **Introduction to Signals** — Sine waves, noise, sampling, Fourier basics
 - **Band Power Analysis** — Spectral decomposition of EEG frequency bands  
+- **Wavelet Transform** — Theory, families, denoising techniques, compression, feature extraction
 - **Artifact Rejection** — Wavelet, EMD, and ensemble methods for cleaning EEG
 
 ## About
