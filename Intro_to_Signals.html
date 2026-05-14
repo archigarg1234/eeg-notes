@@ -350,10 +350,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Signals &amp; Signal Processing</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-notebook-builds-the-foundational-intuition-for-signal-processing">This notebook builds the foundational intuition for <strong>signal processing</strong></a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Signals &amp; Signal Processing</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-signal">1. What is a Signal?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-vs-discrete-signals">Continuous vs Discrete Signals</a></li>
 </ul>
@@ -378,7 +375,6 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-resolution">6. Sampling Rate &amp; Resolution</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-temporal-resolution">Sampling Rate (Temporal Resolution)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nyquist-theorem">The Nyquist Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-precision">Temporal Precision</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-resolution">Frequency Resolution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-precision">Frequency Precision</a></li>
 </ul>
@@ -422,12 +418,16 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-signals-signal-processing">
 <h1>Introduction to Signals &amp; Signal Processing<a class="headerlink" href="#introduction-to-signals-signal-processing" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<section id="this-notebook-builds-the-foundational-intuition-for-signal-processing">
-<h2>This notebook builds the foundational intuition for <strong>signal processing</strong><a class="headerlink" href="#this-notebook-builds-the-foundational-intuition-for-signal-processing" title="Permalink to this heading">#</a></h2>
-<div class="cell docutils container">
+<p>This notebook builds the foundational intuition for <strong>signal processing</strong> — the concepts you need before diving into EEG analysis, filtering, or time-frequency decomposition. We start from first principles and work up through sine waves, noise, complex exponentials, and energy/power.</p>
+<p><strong>Prerequisites:</strong> Basic Python, NumPy, and high-school trigonometry.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">Dropdown</span>
 
@@ -440,12 +440,48 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="what-is-a-signal">
 <h1>1. What is a Signal?<a class="headerlink" href="#what-is-a-signal" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continuous vs Discrete signal visualization</span>
+<span class="n">fs_high</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># &quot;continuous&quot; approximation</span>
+<span class="n">fs_low</span> <span class="o">=</span> <span class="mi">20</span>     <span class="c1"># discrete sampling</span>
+
+<span class="n">t_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs_high</span><span class="p">)</span>
+<span class="n">t_disc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs_low</span><span class="p">)</span>
+
+<span class="n">signal_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span>
+<span class="n">signal_disc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t_disc</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">t_disc</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">signal_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Continuous Signal $s(t)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">t_disc</span><span class="p">,</span> <span class="n">signal_disc</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">signal_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrete Signal $s[n]$  (sampled at </span><span class="si">{</span><span class="n">fs_low</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <blockquote>
 <div><p><strong>A signal is any quantity measured at regular intervals.</strong></p>
 </div></blockquote>
@@ -476,45 +512,49 @@ document.write(`
 </table>
 </div>
 <p>In practice, we almost always work with <strong>discrete</strong> signals — continuous real-world phenomena are <strong>sampled</strong> at regular time intervals by our recording equipment.</p>
-<div class="cell docutils container">
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="key-terminology">
+<h1>2. Key Terminology<a class="headerlink" href="#key-terminology" title="Permalink to this heading">#</a></h1>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continuous vs Discrete signal visualization</span>
-<span class="n">fs_high</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># &quot;continuous&quot; approximation</span>
-<span class="n">fs_low</span> <span class="o">=</span> <span class="mi">20</span>     <span class="c1"># discrete sampling</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explore frequency and period</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">freq</span>
 
-<span class="n">t_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs_high</span><span class="p">)</span>
-<span class="n">t_disc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs_low</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
-<span class="n">signal_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span>
-<span class="n">signal_disc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">t_disc</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="n">t_disc</span><span class="p">)</span>
+<span class="c1"># Highlight one period</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;One period T = </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> s&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="c1"># Mark zero crossings</span>
+<span class="n">zero_crossings</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">T</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">zc</span> <span class="ow">in</span> <span class="n">zero_crossings</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">zc</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zc</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">signal_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Continuous Signal $s(t)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">t_disc</span><span class="p">,</span> <span class="n">signal_disc</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">signal_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Discrete Signal $s[n]$  (sampled at </span><span class="si">{</span><span class="n">fs_low</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
-
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Frequency = </span><span class="si">{</span><span class="n">freq</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  Period T = </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> s&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/cd217ce85553e5d41bdd1d85e345779bb8307dff1a5314559c2d84cc0ee2b1cc.png" src="_images/cd217ce85553e5d41bdd1d85e345779bb8307dff1a5314559c2d84cc0ee2b1cc.png" />
+</details>
 </div>
-</div>
-</section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="key-terminology">
-<h1>2. Key Terminology<a class="headerlink" href="#key-terminology" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
 <section id="sampling-rate-f-s">
 <h2>Sampling Rate (<span class="math notranslate nohighlight">\(f_s\)</span>)<a class="headerlink" href="#sampling-rate-f-s" title="Permalink to this heading">#</a></h2>
 <p>The <strong>sampling rate</strong> (or sampling frequency) is the number of samples captured per second, measured in <strong>Hertz (Hz)</strong>.</p>
@@ -564,54 +604,47 @@ document.write(`
 </tbody>
 </table>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive: explore frequency and period</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_frequency_period</span><span class="p">(</span><span class="n">freq</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
-    <span class="n">fs</span> <span class="o">=</span> <span class="mi">1000</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">freq</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
-
-    <span class="c1"># Highlight one period</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;One period T = </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> s&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-
-    <span class="c1"># Mark zero crossings in first two periods</span>
-    <span class="n">zero_crossings</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">T</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">zc</span> <span class="ow">in</span> <span class="n">zero_crossings</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">zc</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zc</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Frequency = </span><span class="si">{</span><span class="n">freq</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  Period T = </span><span class="si">{</span><span class="n">T</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1"> s&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_frequency_period</span><span class="p">,</span>
-    <span class="n">freq</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b90ddfe8a8b3462298505f125867e7aa", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_frequency_period(freq=3.0)&gt;
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="properties-of-oscillations">
 <h1>3. Properties of Oscillations<a class="headerlink" href="#properties-of-oscillations" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Explore amplitude, frequency, and phase</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+
+<span class="n">amplitude</span> <span class="o">=</span> <span class="mf">3.0</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">phase</span><span class="p">)</span>
+<span class="n">ref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;a=</span><span class="si">{</span><span class="n">amplitude</span><span class="si">}</span><span class="s1">, f=</span><span class="si">{</span><span class="n">frequency</span><span class="si">}</span><span class="s1"> Hz, phase=</span><span class="si">{</span><span class="n">phase</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> rad&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reference (a=1, phase=0)&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Peak = </span><span class="si">{</span><span class="n">amplitude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a = </span><span class="si">{</span><span class="n">amplitude</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">  |  f = </span><span class="si">{</span><span class="n">frequency</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  phase = </span><span class="si">{</span><span class="n">phase</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> rad (</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> deg)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <p>Any oscillation is fully characterized by <strong>three quantities</strong>:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -637,108 +670,17 @@ document.write(`
 </table>
 </div>
 <p>Together, these three numbers can reconstruct any pure sinusoidal signal. This is the fundamental insight behind the <strong>Fourier Transform</strong> — any complex signal can be decomposed into a sum of sinusoids, each described by its frequency, amplitude, and phase.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive: explore amplitude, frequency, and phase</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_oscillation</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-    <span class="n">fs</span> <span class="o">=</span> <span class="mi">1000</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">amplitude</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">*</span> <span class="n">t</span> <span class="o">+</span> <span class="n">phase</span><span class="p">)</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
-
-    <span class="c1"># Reference: unit sine at same frequency</span>
-    <span class="n">ref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">frequency</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reference (a=1, phase=0)&#39;</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Peak = </span><span class="si">{</span><span class="n">amplitude</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;a = </span><span class="si">{</span><span class="n">amplitude</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">  |  f = </span><span class="si">{</span><span class="n">frequency</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  phase = </span><span class="si">{</span><span class="n">phase</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> rad (</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">phase</span><span class="p">)</span><span class="si">:</span><span class="s1">.0f</span><span class="si">}</span><span class="s1"> deg)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_oscillation</span><span class="p">,</span>
-    <span class="n">amplitude</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">),</span>
-    <span class="n">frequency</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">),</span>
-    <span class="n">phase</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Phase (rad)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "05dca06dcfc64da4af6677f265ea409b", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_oscillation(amplitude=1.0, frequency=3.0, phase=0.0)&gt;
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="amplitude-measures">
 <h1>4. Amplitude Measures<a class="headerlink" href="#amplitude-measures" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<p>There are several ways to quantify the “strength” of a signal. Each captures a different aspect:</p>
-<section id="peak-amplitude">
-<h2>Peak Amplitude<a class="headerlink" href="#peak-amplitude" title="Permalink to this heading">#</a></h2>
-<p>The maximum absolute value of the signal.</p>
-<ul class="simple">
-<li><p>Measures the strength of <strong>individual EEG components</strong> (e.g., amplitude of an ERP or spike).</p></li>
-<li><p>Useful for detecting <strong>abnormal spikes</strong> (e.g., epileptic discharges).</p></li>
-</ul>
-</section>
-<section id="peak-to-peak-amplitude">
-<h2>Peak-to-Peak Amplitude<a class="headerlink" href="#peak-to-peak-amplitude" title="Permalink to this heading">#</a></h2>
-<p>The difference between the maximum and minimum values of the signal.</p>
-<ul class="simple">
-<li><p>Reflects the <strong>overall variability</strong> of the EEG signal (e.g., alpha or beta wave amplitude).</p></li>
-<li><p>Used to assess <strong>signal-to-noise ratio</strong> or amplitude modulation in brain rhythms.</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[A_{p2p} = \max(s) - \min(s)\]</div>
-</section>
-<section id="rms-amplitude-root-mean-square">
-<h2>RMS Amplitude (Root Mean Square)<a class="headerlink" href="#rms-amplitude-root-mean-square" title="Permalink to this heading">#</a></h2>
-<p>A statistical measure of the magnitude of a varying signal. It calculates the square root of the average of the squared values over a time window, providing a single value that represents the <strong>effective amplitude</strong> — accounting for both positive and negative fluctuations.</p>
-<p>For a discrete signal <span class="math notranslate nohighlight">\(s\)</span> with <span class="math notranslate nohighlight">\(N\)</span> samples:</p>
-<div class="math notranslate nohighlight">
-\[A_{\text{RMS}} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} s_i^2}\]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(s_i\)</span> is the amplitude of the signal at sample <span class="math notranslate nohighlight">\(i\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(N\)</span> is the total number of samples.</p></li>
-</ul>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Measure</p></th>
-<th class="head"><p>What it captures</p></th>
-<th class="head"><p>Best for</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Peak</p></td>
-<td><p>Maximum excursion</p></td>
-<td><p>Spike detection, ERPs</p></td>
-</tr>
-<tr class="row-odd"><td><p>Peak-to-peak</p></td>
-<td><p>Total range of variation</p></td>
-<td><p>SNR, oscillation strength</p></td>
-</tr>
-<tr class="row-even"><td><p>RMS</p></td>
-<td><p>Effective average magnitude</p></td>
-<td><p>Overall signal power, comparing conditions</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate all three amplitude measures on a realistic signal</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate all three amplitude measures on a realistic signal</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -795,109 +737,98 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/91e5ceb23d4a1970e4cf65c9bbab5b68aedabaece95b0c522397e1119b256e5c.png" src="_images/91e5ceb23d4a1970e4cf65c9bbab5b68aedabaece95b0c522397e1119b256e5c.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Peak Amplitude:      3.485 uV
-Peak-to-Peak:        6.933 uV
-RMS Amplitude:       1.613 uV
-</pre></div>
+</details>
 </div>
+<p>There are several ways to quantify the “strength” of a signal:</p>
+<section id="peak-amplitude">
+<h2>Peak Amplitude<a class="headerlink" href="#peak-amplitude" title="Permalink to this heading">#</a></h2>
+<p>The maximum absolute value of the signal. Measures the strength of <strong>individual EEG components</strong> (e.g., amplitude of an ERP or spike). Useful for detecting <strong>abnormal spikes</strong> (e.g., epileptic discharges).</p>
+</section>
+<section id="peak-to-peak-amplitude">
+<h2>Peak-to-Peak Amplitude<a class="headerlink" href="#peak-to-peak-amplitude" title="Permalink to this heading">#</a></h2>
+<p>The difference between the maximum and minimum values. Reflects the <strong>overall variability</strong> of the EEG signal. Used to assess <strong>signal-to-noise ratio</strong> or amplitude modulation.</p>
+<div class="math notranslate nohighlight">
+\[A_{p2p} = \max(s) - \min(s)\]</div>
+</section>
+<section id="rms-amplitude-root-mean-square">
+<h2>RMS Amplitude (Root Mean Square)<a class="headerlink" href="#rms-amplitude-root-mean-square" title="Permalink to this heading">#</a></h2>
+<p>The square root of the average of the squared values — the <strong>effective amplitude</strong> accounting for both positive and negative fluctuations:</p>
+<div class="math notranslate nohighlight">
+\[A_{\text{RMS}} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} s_i^2}\]</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Measure</p></th>
+<th class="head"><p>What it captures</p></th>
+<th class="head"><p>Best for</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Peak</p></td>
+<td><p>Maximum excursion</p></td>
+<td><p>Spike detection, ERPs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Peak-to-peak</p></td>
+<td><p>Total range of variation</p></td>
+<td><p>SNR, oscillation strength</p></td>
+</tr>
+<tr class="row-even"><td><p>RMS</p></td>
+<td><p>Effective average magnitude</p></td>
+<td><p>Overall signal power, comparing conditions</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive: sliding window RMS to see how amplitude varies over time</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_sliding_rms</span><span class="p">(</span><span class="n">window_ms</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
-    <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sliding window RMS: see how amplitude varies over time</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 
-    <span class="c1"># Signal with amplitude modulation (mimics EEG alpha bursting)</span>
-    <span class="n">envelope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.3</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">signal</span> <span class="o">=</span> <span class="n">envelope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+<span class="c1"># Signal with amplitude modulation (mimics EEG alpha bursting)</span>
+<span class="n">envelope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.3</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">signal</span> <span class="o">=</span> <span class="n">envelope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
-    <span class="c1"># Compute sliding-window RMS</span>
-    <span class="n">win_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">window_ms</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">fs</span><span class="p">)</span>
-    <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">signal</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">win_samples</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span><span class="n">i</span> <span class="o">+</span> <span class="n">win_samples</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span>
-    <span class="p">])</span>
+<span class="c1"># Compute sliding-window RMS (200 ms window)</span>
+<span class="n">window_ms</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">win_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">window_ms</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">fs</span><span class="p">)</span>
+<span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">signal</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">win_samples</span><span class="o">//</span><span class="mi">2</span><span class="p">):</span><span class="n">i</span> <span class="o">+</span> <span class="n">win_samples</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span>
+<span class="p">])</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Signal&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Sliding RMS (</span><span class="si">{</span><span class="n">window_ms</span><span class="si">}</span><span class="s1"> ms window)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (uV)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sliding-Window RMS Amplitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_sliding_rms</span><span class="p">,</span>
-    <span class="n">window_ms</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Window (ms)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Signal&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Sliding RMS (</span><span class="si">{</span><span class="n">window_ms</span><span class="si">}</span><span class="s1"> ms window)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (uV)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sliding-Window RMS Amplitude&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ee2fc7e86324089b624f9e826670d6d", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_sliding_rms(window_ms=200)&gt;
-</pre></div>
-</div>
-</div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="noise">
 <h1>5. Noise<a class="headerlink" href="#noise" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<p>Noise is any unwanted signal component that contaminates the measurement. Understanding noise is critical because <strong>all real signals are noisy</strong>, and many signal processing techniques are fundamentally about separating signal from noise.</p>
-<section id="white-noise">
-<h2>White Noise<a class="headerlink" href="#white-noise" title="Permalink to this heading">#</a></h2>
-<p><strong>Equal power at all frequencies</strong> — the spectrum is flat. It can be:</p>
-<ul class="simple">
-<li><p><strong>Gaussian (normally distributed):</strong> Amplitudes follow a bell curve <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma^2)\)</span>. Most common model for electronic/thermal noise.</p></li>
-<li><p><strong>Uniform:</strong> Amplitudes are equally likely across a range. Less common but useful as a reference.</p></li>
-</ul>
-</section>
-<section id="pink-noise-1-f-noise">
-<h2>Pink Noise (1/f Noise)<a class="headerlink" href="#pink-noise-1-f-noise" title="Permalink to this heading">#</a></h2>
-<p>Power <strong>decreases</strong> with increasing frequency, following a <span class="math notranslate nohighlight">\(1/f\)</span> characteristic. This means:</p>
-<ul class="simple">
-<li><p>Low frequencies are loud, high frequencies are quiet.</p></li>
-<li><p><strong>Very common in biological signals</strong>, including EEG — the brain’s background activity has a natural <span class="math notranslate nohighlight">\(1/f\)</span> spectrum.</p></li>
-</ul>
-<div class="pst-scrollable-table-container"><table class="table">
-<thead>
-<tr class="row-odd"><th class="head"><p>Noise Type</p></th>
-<th class="head"><p>Spectrum Shape</p></th>
-<th class="head"><p>Amplitude Distribution</p></th>
-<th class="head"><p>Where Found</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Gaussian White</p></td>
-<td><p>Flat</p></td>
-<td><p>Normal (bell curve)</p></td>
-<td><p>Electronics, thermal</p></td>
-</tr>
-<tr class="row-odd"><td><p>Uniform White</p></td>
-<td><p>Flat</p></td>
-<td><p>Uniform (rectangular)</p></td>
-<td><p>Quantization, simulation</p></td>
-</tr>
-<tr class="row-even"><td><p>Pink (1/f)</p></td>
-<td><p><span class="math notranslate nohighlight">\(\propto 1/f\)</span></p></td>
-<td><p>Varies</p></td>
-<td><p>Biological signals, EEG</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate and compare noise types</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate and compare noise types</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">duration</span> <span class="o">=</span> <span class="mi">10</span>
@@ -933,20 +864,65 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/c0f8e9b8f0c8655cd9b3dd205340f49fb7bcb73ed09da0b0a79f39fdbc3bffd0.png" src="_images/c0f8e9b8f0c8655cd9b3dd205340f49fb7bcb73ed09da0b0a79f39fdbc3bffd0.png" />
+</details>
 </div>
+<p>Noise is any unwanted signal component that contaminates the measurement. Understanding noise is critical because <strong>all real signals are noisy</strong>.</p>
+<section id="white-noise">
+<h2>White Noise<a class="headerlink" href="#white-noise" title="Permalink to this heading">#</a></h2>
+<p><strong>Equal power at all frequencies</strong> — the spectrum is flat. It can be:</p>
+<ul class="simple">
+<li><p><strong>Gaussian (normally distributed):</strong> Amplitudes follow a bell curve <span class="math notranslate nohighlight">\(\mathcal{N}(0, \sigma^2)\)</span>. Most common model for electronic/thermal noise.</p></li>
+<li><p><strong>Uniform:</strong> Amplitudes are equally likely across a range.</p></li>
+</ul>
+</section>
+<section id="pink-noise-1-f-noise">
+<h2>Pink Noise (1/f Noise)<a class="headerlink" href="#pink-noise-1-f-noise" title="Permalink to this heading">#</a></h2>
+<p>Power <strong>decreases</strong> with increasing frequency, following a <span class="math notranslate nohighlight">\(1/f\)</span> characteristic:</p>
+<ul class="simple">
+<li><p>Low frequencies are loud, high frequencies are quiet.</p></li>
+<li><p><strong>Very common in biological signals</strong>, including EEG — the brain’s background activity has a natural <span class="math notranslate nohighlight">\(1/f\)</span> spectrum.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Noise Type</p></th>
+<th class="head"><p>Spectrum Shape</p></th>
+<th class="head"><p>Amplitude Distribution</p></th>
+<th class="head"><p>Where Found</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Gaussian White</p></td>
+<td><p>Flat</p></td>
+<td><p>Normal (bell curve)</p></td>
+<td><p>Electronics, thermal</p></td>
+</tr>
+<tr class="row-odd"><td><p>Uniform White</p></td>
+<td><p>Flat</p></td>
+<td><p>Uniform (rectangular)</p></td>
+<td><p>Quantization, simulation</p></td>
+</tr>
+<tr class="row-even"><td><p>Pink (1/f)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\propto 1/f\)</span></p></td>
+<td><p>Varies</p></td>
+<td><p>Biological signals, EEG</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Power Spectral Density comparison</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Power Spectral Density comparison</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">welch</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">noises</span><span class="p">):</span>
     <span class="n">f_psd</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
-
     <span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">f_psd</span><span class="p">,</span> <span class="n">psd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PSD: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
@@ -958,13 +934,16 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/fb4197fcedfc64ec8b7f04d8fed2a1a5a875bb33f8cf2f67b11bbc4f20521bea.png" src="_images/fb4197fcedfc64ec8b7f04d8fed2a1a5a875bb33f8cf2f67b11bbc4f20521bea.png" />
+</details>
 </div>
-</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Amplitude distributions</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Amplitude distributions</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">noises</span><span class="p">):</span>
@@ -981,15 +960,51 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/480d15f3064922c13e714f54c923d2b82a45849ed898dde0a346fa8f27258e0c.png" src="_images/480d15f3064922c13e714f54c923d2b82a45849ed898dde0a346fa8f27258e0c.png" />
-</div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="sampling-rate-resolution">
 <h1>6. Sampling Rate &amp; Resolution<a class="headerlink" href="#sampling-rate-resolution" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize aliasing and the Nyquist theorem</span>
+<span class="n">signal_freq</span> <span class="o">=</span> <span class="mf">5.0</span>
+<span class="n">sampling_rate</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="c1"># &quot;True&quot; continuous signal</span>
+<span class="n">t_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
+<span class="n">s_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">signal_freq</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span>
+
+<span class="c1"># Sampled version</span>
+<span class="n">t_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">)</span>
+<span class="n">s_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">signal_freq</span> <span class="o">*</span> <span class="n">t_samp</span><span class="p">)</span>
+
+<span class="n">nyquist</span> <span class="o">=</span> <span class="n">sampling_rate</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">aliased</span> <span class="o">=</span> <span class="n">signal_freq</span> <span class="o">&gt;</span> <span class="n">nyquist</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">s_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;True signal (</span><span class="si">{</span><span class="n">signal_freq</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">t_samp</span><span class="p">,</span> <span class="n">s_samp</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Samples (fs=</span><span class="si">{</span><span class="n">sampling_rate</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Signal: </span><span class="si">{</span><span class="n">signal_freq</span><span class="si">}</span><span class="s1"> Hz  |  Nyquist limit: </span><span class="si">{</span><span class="n">nyquist</span><span class="si">}</span><span class="s1"> Hz  |  Properly sampled&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <section id="sampling-rate-temporal-resolution">
 <h2>Sampling Rate (Temporal Resolution)<a class="headerlink" href="#sampling-rate-temporal-resolution" title="Permalink to this heading">#</a></h2>
 <p>The sampling rate determines how finely we slice time:</p>
@@ -1020,84 +1035,32 @@ RMS Amplitude:       1.613 uV
 </tbody>
 </table>
 </div>
-<p><strong>500-2000 Hz covers most EEG analysis.</strong> 1000 Hz is particularly convenient since each sample corresponds to exactly 1 millisecond.</p>
+<p><strong>500-2000 Hz covers most EEG analysis.</strong></p>
 </section>
 <section id="the-nyquist-theorem">
 <h2>The Nyquist Theorem<a class="headerlink" href="#the-nyquist-theorem" title="Permalink to this heading">#</a></h2>
 <p>You must sample at <strong>at least twice</strong> the highest frequency in the signal to avoid <strong>aliasing</strong>:</p>
 <div class="math notranslate nohighlight">
 \[f_s \geq 2 \times f_{\max}\]</div>
-<p>If the highest frequency in your EEG is 100 Hz, you need at least 200 Hz sampling. In practice, we use much higher rates to provide a safety margin.</p>
-</section>
-<section id="temporal-precision">
-<h2>Temporal Precision<a class="headerlink" href="#temporal-precision" title="Permalink to this heading">#</a></h2>
-<p>How much information is encoded across the current, previous, and next time points. Higher sampling rates capture finer temporal details.</p>
+<p>If the highest frequency in your EEG is 100 Hz, you need at least 200 Hz sampling.</p>
 </section>
 <section id="frequency-resolution">
 <h2>Frequency Resolution<a class="headerlink" href="#frequency-resolution" title="Permalink to this heading">#</a></h2>
-<p>Determined by the <strong>total number of time points</strong> — more samples yields finer frequency bins in spectral analysis:</p>
+<p>Determined by the <strong>total number of time points</strong> — more samples yields finer frequency bins:</p>
 <div class="math notranslate nohighlight">
 \[\Delta f = \frac{f_s}{N}\]</div>
-<p>where <span class="math notranslate nohighlight">\(N\)</span> is the total number of samples.</p>
 </section>
 <section id="frequency-precision">
 <h2>Frequency Precision<a class="headerlink" href="#frequency-precision" title="Permalink to this heading">#</a></h2>
 <p>The information density per frequency bin relative to the whole signal. Longer recordings give more precise frequency estimates.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive: visualize aliasing and the Nyquist theorem</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_aliasing</span><span class="p">(</span><span class="n">signal_freq</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">sampling_rate</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-    <span class="c1"># &quot;True&quot; continuous signal</span>
-    <span class="n">t_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">)</span>
-    <span class="n">s_cont</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">signal_freq</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span>
-
-    <span class="c1"># Sampled version</span>
-    <span class="n">t_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">sampling_rate</span><span class="p">)</span>
-    <span class="n">s_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">signal_freq</span> <span class="o">*</span> <span class="n">t_samp</span><span class="p">)</span>
-
-    <span class="c1"># Nyquist limit</span>
-    <span class="n">nyquist</span> <span class="o">=</span> <span class="n">sampling_rate</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">aliased</span> <span class="o">=</span> <span class="n">signal_freq</span> <span class="o">&gt;</span> <span class="n">nyquist</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">s_cont</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;True signal (</span><span class="si">{</span><span class="n">signal_freq</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">t_samp</span><span class="p">,</span> <span class="n">s_samp</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">aliased</span> <span class="k">else</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span>
-            <span class="n">markerfmt</span><span class="o">=</span><span class="s1">&#39;ro&#39;</span> <span class="k">if</span> <span class="n">aliased</span> <span class="k">else</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
-            <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Samples (fs=</span><span class="si">{</span><span class="n">sampling_rate</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">)</span>
-
-    <span class="c1"># If aliased, show what frequency the samples &quot;look like&quot;</span>
-    <span class="k">if</span> <span class="n">aliased</span><span class="p">:</span>
-        <span class="n">apparent_freq</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">signal_freq</span> <span class="o">-</span> <span class="n">sampling_rate</span> <span class="o">*</span> <span class="nb">round</span><span class="p">(</span><span class="n">signal_freq</span> <span class="o">/</span> <span class="n">sampling_rate</span><span class="p">))</span>
-        <span class="n">s_alias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">apparent_freq</span> <span class="o">*</span> <span class="n">t_cont</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_cont</span><span class="p">,</span> <span class="n">s_alias</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span>
-                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Aliased appearance (</span><span class="si">{</span><span class="n">apparent_freq</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-
-    <span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;ALIASED!&#39;</span> <span class="k">if</span> <span class="n">aliased</span> <span class="k">else</span> <span class="s1">&#39;Properly sampled&#39;</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Signal: </span><span class="si">{</span><span class="n">signal_freq</span><span class="si">}</span><span class="s1"> Hz  |  Nyquist limit: </span><span class="si">{</span><span class="n">nyquist</span><span class="si">}</span><span class="s1"> Hz  |  </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_aliasing</span><span class="p">,</span>
-    <span class="n">signal_freq</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Signal (Hz)&#39;</span><span class="p">),</span>
-    <span class="n">sampling_rate</span><span class="o">=</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Fs (Hz)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2dedaeca645f4cdba84d769a162a15a3", "version_major": 2, "version_minor": 0}</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.plot_aliasing(signal_freq=5.0, sampling_rate=12)&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Frequency resolution depends on signal length</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Frequency resolution depends on signal length</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">durations</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]</span>  <span class="c1"># seconds</span>
 
@@ -1105,10 +1068,8 @@ RMS Amplitude:       1.613 uV
 
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">dur</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">durations</span><span class="p">):</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
-    <span class="c1"># Signal with two close frequencies: 10 Hz and 12 Hz</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 
-    <span class="c1"># FFT</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
     <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
     <span class="n">fft_mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="o">/</span> <span class="n">N</span>
@@ -1128,40 +1089,20 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/5a07891734515e8d6d263f32b2551b3bd70dbb61050baac627c8f6037d2ed5f5.png" src="_images/5a07891734515e8d6d263f32b2551b3bd70dbb61050baac627c8f6037d2ed5f5.png" />
-</div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="the-sine-wave">
 <h1>7. The Sine Wave<a class="headerlink" href="#the-sine-wave" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<p>The sine wave is the fundamental building block of signal processing. Every signal can be decomposed into a sum of sine waves (this is the core idea of the Fourier Transform).</p>
-<section id="general-formula">
-<h2>General Formula<a class="headerlink" href="#general-formula" title="Permalink to this heading">#</a></h2>
-<div class="math notranslate nohighlight">
-\[y = a \times \sin(2\pi \times f \times t + \theta)\]</div>
-<p>where:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(a\)</span> is the <strong>amplitude</strong> (peak height),</p></li>
-<li><p><span class="math notranslate nohighlight">\(f\)</span> is the <strong>frequency</strong> in Hz (cycles per second),</p></li>
-<li><p><span class="math notranslate nohighlight">\(t\)</span> is <strong>time</strong> in seconds,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\theta\)</span> is the <strong>phase angle</strong> in radians.</p></li>
-</ul>
-</section>
-<section id="sine-vs-cosine">
-<h2>Sine vs Cosine<a class="headerlink" href="#sine-vs-cosine" title="Permalink to this heading">#</a></h2>
-<p>A cosine is just a <strong>phase-shifted sine</strong>:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(\theta = 0\)</span>: <strong>sine</strong> — starts at zero, rises first</p></li>
-<li><p><span class="math notranslate nohighlight">\(\theta = \pi/2\)</span>: <strong>cosine</strong> — starts at the peak</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[\cos(t) = \sin\left(t + \frac{\pi}{2}\right)\]</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single sine wave with labeled parameters</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Single sine wave with labeled parameters</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 
@@ -1191,10 +1132,38 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-<div class="cell docutils container">
+<p>The sine wave is the fundamental building block of signal processing. Every signal can be decomposed into a sum of sine waves (the core idea of the Fourier Transform).</p>
+<section id="general-formula">
+<h2>General Formula<a class="headerlink" href="#general-formula" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[y = a \times \sin(2\pi \times f \times t + \theta)\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a\)</span> is the <strong>amplitude</strong> (peak height),</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> is the <strong>frequency</strong> in Hz (cycles per second),</p></li>
+<li><p><span class="math notranslate nohighlight">\(t\)</span> is <strong>time</strong> in seconds,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta\)</span> is the <strong>phase angle</strong> in radians.</p></li>
+</ul>
+</section>
+<section id="sine-vs-cosine">
+<h2>Sine vs Cosine<a class="headerlink" href="#sine-vs-cosine" title="Permalink to this heading">#</a></h2>
+<p>A cosine is just a <strong>phase-shifted sine</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta = 0\)</span>: <strong>sine</strong> — starts at zero, rises first</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta = \pi/2\)</span>: <strong>cosine</strong> — starts at the peak</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\cos(t) = \sin\left(t + \frac{\pi}{2}\right)\]</div>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Superposition: adding multiple sine waves</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Superposition: adding multiple sine waves</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 
@@ -1224,39 +1193,22 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="euler-s-formula-complex-exponentials">
 <h1>8. Euler’s Formula &amp; Complex Exponentials<a class="headerlink" href="#euler-s-formula-complex-exponentials" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<section id="euler-s-formula">
-<h2>Euler’s Formula<a class="headerlink" href="#euler-s-formula" title="Permalink to this heading">#</a></h2>
-<p>One of the most beautiful equations in mathematics connects exponentials, trigonometry, and complex numbers:</p>
-<div class="math notranslate nohighlight">
-\[e^{ik} = \cos(k) + i\sin(k)\]</div>
-<p>This means a complex exponential traces a <strong>circle</strong> in the complex plane as <span class="math notranslate nohighlight">\(k\)</span> increases. The real part gives a cosine, the imaginary part gives a sine — both emerge from the same underlying rotation.</p>
-</section>
-<section id="why-does-this-matter-for-signal-processing">
-<h2>Why Does This Matter for Signal Processing?<a class="headerlink" href="#why-does-this-matter-for-signal-processing" title="Permalink to this heading">#</a></h2>
-<p>Euler’s formula lets us express sines and cosines as complex exponentials:</p>
-<div class="math notranslate nohighlight">
-\[\sin(t) = \frac{e^{it} - e^{-it}}{2i} = \text{Im}(e^{it})\]</div>
-<div class="math notranslate nohighlight">
-\[\cos(t) = \frac{e^{it} + e^{-it}}{2} = \text{Re}(e^{it})\]</div>
-<p>This is <strong>not</strong> just mathematical elegance — it’s the reason the <strong>Fourier Transform</strong> works. Complex exponentials are the natural basis functions for decomposing signals. They make convolutions into multiplications, differentiation into multiplication by <span class="math notranslate nohighlight">\(i\omega\)</span>, and generally turn hard problems into easy ones.</p>
-</section>
-<section id="the-complex-sine-wave">
-<h2>The Complex Sine Wave<a class="headerlink" href="#the-complex-sine-wave" title="Permalink to this heading">#</a></h2>
-<p>Substituting the standard oscillation formula into Euler’s formula gives:</p>
-<div class="math notranslate nohighlight">
-\[y = e^{i \cdot 2\pi f t} = \underbrace{\cos(2\pi f t)}_{\text{real part}} + i \underbrace{\sin(2\pi f t)}_{\text{imaginary part}}\]</div>
-<p>The real and imaginary parts are a <strong>cosine and a sine</strong>, offset by <span class="math notranslate nohighlight">\(\pi/2\)</span>. When plotted in 3D (time x real x imaginary), this traces a <strong>helix</strong> — a corkscrew through the complex plane.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Euler&#39;s formula: complex exponential traces a circle</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Euler&#39;s formula: complex exponential traces a circle</span>
 <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>  <span class="c1"># e^(i*theta)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
@@ -1276,13 +1228,11 @@ RMS Amplitude:       1.613 uV
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="c1"># Real part = cosine</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Real part: $\cos(\theta)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;theta (radians)&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
 
-<span class="c1"># Imaginary part = sine</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Imaginary part: $\sin(\theta)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;theta (radians)&#39;</span><span class="p">)</span>
@@ -1293,10 +1243,36 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-<div class="cell docutils container">
+<section id="euler-s-formula">
+<h2>Euler’s Formula<a class="headerlink" href="#euler-s-formula" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[e^{ik} = \cos(k) + i\sin(k)\]</div>
+<p>A complex exponential traces a <strong>circle</strong> in the complex plane. The real part gives a cosine, the imaginary part gives a sine — both emerge from the same underlying rotation.</p>
+</section>
+<section id="why-does-this-matter-for-signal-processing">
+<h2>Why Does This Matter for Signal Processing?<a class="headerlink" href="#why-does-this-matter-for-signal-processing" title="Permalink to this heading">#</a></h2>
+<p>Euler’s formula lets us express sines and cosines as complex exponentials:</p>
+<div class="math notranslate nohighlight">
+\[\sin(t) = \frac{e^{it} - e^{-it}}{2i} = \text{Im}(e^{it})\]</div>
+<div class="math notranslate nohighlight">
+\[\cos(t) = \frac{e^{it} + e^{-it}}{2} = \text{Re}(e^{it})\]</div>
+<p>This is the reason the <strong>Fourier Transform</strong> works. Complex exponentials are the natural basis functions for decomposing signals. They make convolutions into multiplications, differentiation into multiplication by <span class="math notranslate nohighlight">\(i\omega\)</span>, and generally turn hard problems into easy ones.</p>
+</section>
+<section id="the-complex-sine-wave">
+<h2>The Complex Sine Wave<a class="headerlink" href="#the-complex-sine-wave" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[y = e^{i \cdot 2\pi f t} = \underbrace{\cos(2\pi f t)}_{\text{real part}} + i \underbrace{\sin(2\pi f t)}_{\text{imaginary part}}\]</div>
+<p>The real and imaginary parts are a <strong>cosine and a sine</strong>, offset by <span class="math notranslate nohighlight">\(\pi/2\)</span>. When plotted in 3D, this traces a <strong>helix</strong>.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3D helix: the complex sine wave</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3D helix: the complex sine wave</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Hz</span>
@@ -1306,10 +1282,7 @@ RMS Amplitude:       1.613 uV
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
-<span class="c1"># 3D helix</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Complex exponential&#39;</span><span class="p">)</span>
-
-<span class="c1"># Projections</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">zs</span><span class="o">=-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Real part (cosine)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="n">zdir</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Imag part (sine)&#39;</span><span class="p">)</span>
 
@@ -1323,12 +1296,41 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="the-gaussian-function">
 <h1>9. The Gaussian Function<a class="headerlink" href="#the-gaussian-function" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gaussian with different parameters</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a=1, b=0, c=1&#39;</span><span class="p">,</span> <span class="s1">&#39;steelblue&#39;</span><span class="p">),</span>
+                                <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a=2, b=0, c=1&#39;</span><span class="p">,</span> <span class="s1">&#39;#e74c3c&#39;</span><span class="p">),</span>
+                                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;a=1, b=2, c=0.5&#39;</span><span class="p">,</span> <span class="s1">&#39;#2ecc71&#39;</span><span class="p">)]:</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Gaussian Function with different parameters&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <p>The Gaussian function is a symmetric, <strong>bell-shaped curve</strong> that appears everywhere in signal processing and statistics.</p>
 <section id="mathematical-formulation">
 <h2>Mathematical Formulation<a class="headerlink" href="#mathematical-formulation" title="Permalink to this heading">#</a></h2>
@@ -1337,15 +1339,15 @@ RMS Amplitude:       1.613 uV
 <p>where:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(a\)</span> controls the <strong>peak height</strong>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(b\)</span> determines the <strong>position</strong> of the peak along the x-axis (the center/mean),</p></li>
-<li><p><span class="math notranslate nohighlight">\(c\)</span> controls the <strong>width</strong> of the curve (related to the standard deviation).</p></li>
+<li><p><span class="math notranslate nohighlight">\(b\)</span> determines the <strong>position</strong> of the peak (the center/mean),</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span> controls the <strong>width</strong> (related to the standard deviation).</p></li>
 </ul>
 </section>
 <section id="why-is-the-gaussian-special">
 <h2>Why is the Gaussian Special?<a class="headerlink" href="#why-is-the-gaussian-special" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
-<li><p><strong>Self-similar under Fourier Transform:</strong> A Gaussian in the time domain is also a Gaussian in the frequency domain. This makes it the optimal trade-off between time and frequency localization.</p></li>
-<li><p><strong>Central Limit Theorem:</strong> The sum of many independent random variables converges to a Gaussian, which is why noise is often Gaussian.</p></li>
+<li><p><strong>Self-similar under Fourier Transform:</strong> A Gaussian in time is also a Gaussian in frequency — the optimal trade-off between time and frequency localization.</p></li>
+<li><p><strong>Central Limit Theorem:</strong> The sum of many independent random variables converges to a Gaussian.</p></li>
 </ol>
 </section>
 <section id="applications-in-eeg-analysis">
@@ -1372,55 +1374,22 @@ RMS Amplitude:       1.613 uV
 </tbody>
 </table>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Interactive Gaussian exploration</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_gaussian</span><span class="p">(</span><span class="n">peak_height</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">peak_height</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">width</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Mark width (standard deviation)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
-               <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;+/- sigma = +/- </span><span class="si">{</span><span class="n">width</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Center = </span><span class="si">{</span><span class="n">center</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Gaussian: a=</span><span class="si">{</span><span class="n">peak_height</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, b=</span><span class="si">{</span><span class="n">center</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, c=</span><span class="si">{</span><span class="n">width</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_gaussian</span><span class="p">,</span>
-    <span class="n">peak_height</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Height (a)&#39;</span><span class="p">),</span>
-    <span class="n">center</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Center (b)&#39;</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Width (c)&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Morlet wavelet: a Gaussian-windowed complex sinusoid</span>
-<span class="c1"># This is the key connection between Gaussians and EEG analysis</span>
-
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Morlet wavelet: a Gaussian-windowed complex sinusoid</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Hz (center frequency of wavelet)</span>
-<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.8</span>  <span class="c1"># width of Gaussian envelope</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.8</span>
 
-<span class="c1"># Components</span>
 <span class="n">gaussian_env</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">sine_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># real part</span>
-<span class="n">morlet</span> <span class="o">=</span> <span class="n">gaussian_env</span> <span class="o">*</span> <span class="n">sine_wave</span>  <span class="c1"># Morlet wavelet (real part)</span>
-<span class="n">morlet_imag</span> <span class="o">=</span> <span class="n">gaussian_env</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># imaginary part</span>
+<span class="n">sine_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">morlet</span> <span class="o">=</span> <span class="n">gaussian_env</span> <span class="o">*</span> <span class="n">sine_wave</span>
+<span class="n">morlet_imag</span> <span class="o">=</span> <span class="n">gaussian_env</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 
@@ -1452,58 +1421,35 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="energy-and-power">
 <h1>10. Energy and Power<a class="headerlink" href="#energy-and-power" title="Permalink to this heading">#</a></h1>
-<hr class="docutils" />
-<p>Understanding energy and power is essential for spectral analysis — when we talk about the “power spectrum” of an EEG signal, these are the quantities we mean.</p>
-<section id="instantaneous-power">
-<h2>Instantaneous Power<a class="headerlink" href="#instantaneous-power" title="Permalink to this heading">#</a></h2>
-<p>At any moment, the <strong>instantaneous power</strong> is the square of the signal’s amplitude:</p>
-<div class="math notranslate nohighlight">
-\[P(t) = s^2(t)\]</div>
-<p>This tells us “how much energy is being delivered right now.” Note that squaring makes all values positive — power is always non-negative.</p>
-</section>
-<section id="signal-energy">
-<h2>Signal Energy<a class="headerlink" href="#signal-energy" title="Permalink to this heading">#</a></h2>
-<p>The <strong>total energy</strong> over a time interval is the integral (or sum, for discrete signals) of instantaneous power:</p>
-<div class="math notranslate nohighlight">
-\[E = \int s^2(t) \, dt = \sum_{i=1}^{N} |s_i|^2\]</div>
-<p>This is the area under the squared signal — equivalently, the total “work” done by the signal.</p>
-</section>
-<section id="average-power">
-<h2>Average Power<a class="headerlink" href="#average-power" title="Permalink to this heading">#</a></h2>
-<p>For a signal of duration <span class="math notranslate nohighlight">\(T\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\bar{P} = \frac{1}{T} \int_0^T s^2(t) \, dt = \frac{E}{T}\]</div>
-<p>Note that <strong>RMS amplitude</strong> = <span class="math notranslate nohighlight">\(\sqrt{\bar{P}}\)</span>, which connects our earlier discussion to power.</p>
-</section>
-<section id="connection-to-frequency-domain">
-<h2>Connection to Frequency Domain<a class="headerlink" href="#connection-to-frequency-domain" title="Permalink to this heading">#</a></h2>
-<p><strong>Parseval’s theorem</strong> states that the total energy computed in the time domain equals the total energy computed in the frequency domain. This is why we can meaningfully talk about “power at 10 Hz” — it corresponds to actual signal energy.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize instantaneous power, energy, and average power</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize instantaneous power, energy, and average power</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 
-<span class="c1"># EEG-like signal: alpha with amplitude modulation</span>
 <span class="n">envelope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.3</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 <span class="n">signal</span> <span class="o">=</span> <span class="n">envelope</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
-<span class="c1"># Compute quantities</span>
 <span class="n">inst_power</span> <span class="o">=</span> <span class="n">signal</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">cumulative_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">inst_power</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>  <span class="c1"># approximate integral</span>
+<span class="n">cumulative_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">inst_power</span><span class="p">)</span> <span class="o">/</span> <span class="n">fs</span>
 <span class="n">total_energy</span> <span class="o">=</span> <span class="n">cumulative_energy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">avg_power</span> <span class="o">=</span> <span class="n">total_energy</span> <span class="o">/</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">rms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">avg_power</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># Signal</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;RMS = </span><span class="si">{</span><span class="n">rms</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="o">-</span><span class="n">rms</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
@@ -1511,7 +1457,6 @@ RMS Amplitude:       1.613 uV
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (uV)&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="c1"># Instantaneous power</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">inst_power</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">inst_power</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">avg_power</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
@@ -1520,7 +1465,6 @@ RMS Amplitude:       1.613 uV
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Power (uV^2)&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-<span class="c1"># Cumulative energy</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cumulative_energy</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cumulative_energy</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cumulative Energy -- Total E = </span><span class="si">{</span><span class="n">total_energy</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> uV^2*s&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
@@ -1529,17 +1473,40 @@ RMS Amplitude:       1.613 uV
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Total Energy:   </span><span class="si">{</span><span class="n">total_energy</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> uV^2*s&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average Power:  </span><span class="si">{</span><span class="n">avg_power</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> uV^2&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;RMS Amplitude:  </span><span class="si">{</span><span class="n">rms</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> uV (= sqrt(avg_power))&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
-<div class="cell docutils container">
+<section id="instantaneous-power">
+<h2>Instantaneous Power<a class="headerlink" href="#instantaneous-power" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[P(t) = s^2(t)\]</div>
+<p>The square of the signal amplitude at any moment. Always non-negative.</p>
+</section>
+<section id="signal-energy">
+<h2>Signal Energy<a class="headerlink" href="#signal-energy" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[E = \int s^2(t) \, dt = \sum_{i=1}^{N} |s_i|^2\]</div>
+<p>The area under the squared signal — the total “work” done by the signal.</p>
+</section>
+<section id="average-power">
+<h2>Average Power<a class="headerlink" href="#average-power" title="Permalink to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[\bar{P} = \frac{1}{T} \int_0^T s^2(t) \, dt = \frac{E}{T}\]</div>
+<p>Note that <strong>RMS amplitude</strong> = <span class="math notranslate nohighlight">\(\sqrt{\bar{P}}\)</span>, connecting amplitude to power.</p>
+</section>
+<section id="connection-to-frequency-domain">
+<h2>Connection to Frequency Domain<a class="headerlink" href="#connection-to-frequency-domain" title="Permalink to this heading">#</a></h2>
+<p><strong>Parseval’s theorem</strong> states that total energy in the time domain equals total energy in the frequency domain. This is why we can meaningfully talk about “power at 10 Hz.”</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parseval&#39;s theorem: energy in time domain = energy in frequency domain</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parseval&#39;s theorem: energy in time domain = energy in frequency domain</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -1550,15 +1517,10 @@ RMS Amplitude:       1.613 uV
 <span class="p">)</span>
 
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
-
-<span class="c1"># Time domain energy</span>
 <span class="n">energy_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">signal</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Frequency domain energy (Parseval&#39;s theorem)</span>
 <span class="n">fft_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
 <span class="n">energy_freq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fft_vals</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
 
-<span class="c1"># Power spectrum</span>
 <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 <span class="n">power_spectrum</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">signal</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
 
@@ -1585,10 +1547,10 @@ RMS Amplitude:       1.613 uV
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 </section>
 </section>
-<hr class="docutils" />
 <section class="tex2jax_ignore mathjax_ignore" id="summary">
 <h1>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -1635,7 +1597,6 @@ RMS Amplitude:       1.613 uV
 </table>
 </div>
 <p>These concepts form the foundation for everything that follows – filtering, spectral analysis, wavelet transforms, and EEG-specific processing techniques.</p>
-<hr class="docutils" />
 <p><em>Next: Introduction to EEG Signals</em></p>
 </section>
 
@@ -1703,10 +1664,7 @@ RMS Amplitude:       1.613 uV
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Signals &amp; Signal Processing</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-notebook-builds-the-foundational-intuition-for-signal-processing">This notebook builds the foundational intuition for <strong>signal processing</strong></a></li>
-</ul>
-</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Introduction to Signals &amp; Signal Processing</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-signal">1. What is a Signal?</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continuous-vs-discrete-signals">Continuous vs Discrete Signals</a></li>
 </ul>
@@ -1731,7 +1689,6 @@ RMS Amplitude:       1.613 uV
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-resolution">6. Sampling Rate &amp; Resolution</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-rate-temporal-resolution">Sampling Rate (Temporal Resolution)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nyquist-theorem">The Nyquist Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#temporal-precision">Temporal Precision</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-resolution">Frequency Resolution</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#frequency-precision">Frequency Precision</a></li>
 </ul>
