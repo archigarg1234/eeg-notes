@@ -433,9 +433,10 @@ document.write(`
 <li><p><strong>Zero Mean</strong> — integrates to zero: <span class="math notranslate nohighlight">\(\int \psi(t)\,dt = 0\)</span> (oscillatory, no DC)</p></li>
 <li><p><strong>Centred at Zero</strong> — concentrated around <span class="math notranslate nohighlight">\(t = 0\)</span>, decays on both sides</p></li>
 </ol>
+<p><img alt="WhatsApp Image 2026-05-14 at 5.37.13 PM.jpeg" src="attachment:WhatsApp%20Image%202026-05-14%20at%205.37.13%20PM.jpeg" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pywt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span> <span class="k">as</span> <span class="n">sig</span>
@@ -456,7 +457,7 @@ document.write(`
 <span class="c1"># A sine wave extends forever; a wavelet is localised</span>
 <span class="n">sine</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
 <span class="n">wavelet_eg</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">ContinuousWavelet</span><span class="p">(</span><span class="s1">&#39;morl&#39;</span><span class="p">)</span>
-<span class="p">[</span><span class="n">psi</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">wavelet_eg</span><span class="o">.</span><span class="n">wavefun</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">[</span><span class="n">psi</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">wavelet_eg</span><span class="o">.</span><span class="n">wavefun</span><span class="p">()</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sine</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -470,6 +471,9 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/687038db9d2fac908d3994e71ce9950a16981c73be1cf37ba71c7a0c8664db87.png" src="_images/687038db9d2fac908d3994e71ce9950a16981c73be1cf37ba71c7a0c8664db87.png" />
 </div>
 </div>
 </section>
@@ -512,7 +516,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p>This is the basis of the <strong>Discrete Wavelet Transform (DWT)</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Scaling demo: same Morlet at different scales ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Scaling demo: same Morlet at different scales ---</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">scales</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="s1">&#39;#2c3e50&#39;</span><span class="p">,</span> <span class="s1">&#39;#3498db&#39;</span><span class="p">]</span>
@@ -532,6 +536,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/20c2301556dde7a0ab81d7df4fc00cf845f4475e355be8bdcff945c8b2539270.png" src="_images/20c2301556dde7a0ab81d7df4fc00cf845f4475e355be8bdcff945c8b2539270.png" />
 </div>
 </div>
 </section>
@@ -574,7 +581,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p><strong>Guideline:</strong> FWHM should be <span class="math notranslate nohighlight">\(\geq\)</span> 1 cycle of the wavelet’s centre frequency (e.g. for 10 Hz, FWHM <span class="math notranslate nohighlight">\(\geq\)</span> 100 ms).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Cycles trade-off: few vs many cycles ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Cycles trade-off: few vs many cycles ---</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
 <span class="n">f0</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># centre frequency</span>
@@ -619,6 +626,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/64efc7de8d15c5fe75efb414c91478f27e52ec25a90c4210e13e114e6a0384f4.png" src="_images/64efc7de8d15c5fe75efb414c91478f27e52ec25a90c4210e13e114e6a0384f4.png" />
+</div>
 </div>
 </section>
 </section>
@@ -658,7 +668,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Plot all wavelet families ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Plot all wavelet families ---</span>
 <span class="n">discrete_wavelets</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="s1">&#39;haar&#39;</span><span class="p">,</span> <span class="s1">&#39;Haar&#39;</span><span class="p">),</span>
     <span class="p">(</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="s1">&#39;Daubechies-4&#39;</span><span class="p">),</span>
@@ -685,7 +695,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 
 <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">continuous_wavelets</span><span class="p">):</span>
     <span class="n">wav</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">ContinuousWavelet</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">psi</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">wav</span><span class="o">.</span><span class="n">wavefun</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">psi</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">wav</span><span class="o">.</span><span class="n">wavefun</span><span class="p">()</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">discrete_wavelets</span><span class="p">)</span> <span class="o">+</span> <span class="n">j</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e67e22&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
     <span class="n">axes</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e67e22&#39;</span><span class="p">)</span>
@@ -698,6 +708,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/468580a78c6365fda6ab919dcc8c20b0daaaed897c556535bf612a180243ba8d.png" src="_images/468580a78c6365fda6ab919dcc8c20b0daaaed897c556535bf612a180243ba8d.png" />
 </div>
 </div>
 <section id="the-morlet-wavelet-closer-look">
@@ -713,7 +726,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Morlet wavelet anatomy ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Morlet wavelet anatomy ---</span>
 <span class="n">t_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">omega0</span> <span class="o">=</span> <span class="mf">6.0</span>
 <span class="n">carrier</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega0</span> <span class="o">*</span> <span class="n">t_m</span><span class="p">)</span>
@@ -730,6 +743,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c0060eef633b8f57b0850dff7701ac13adf62b2390ca1edf0f4ded0dcd1d735e.png" src="_images/c0060eef633b8f57b0850dff7701ac13adf62b2390ca1edf0f4ded0dcd1d735e.png" />
 </div>
 </div>
 </section>
@@ -774,7 +790,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- CWT Scalogram ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- CWT Scalogram ---</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span> <span class="n">dur</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -804,10 +820,13 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/d2d64ff35a90cbd64bc9ecf52696bf899b713d425990ac62e65d7a3794e6593b.png" src="_images/d2d64ff35a90cbd64bc9ecf52696bf899b713d425990ac62e65d7a3794e6593b.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- DWT Multiresolution Decomposition ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- DWT Multiresolution Decomposition ---</span>
 <span class="n">wavelet</span> <span class="o">=</span> <span class="s1">&#39;db4&#39;</span>
 <span class="n">level</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
@@ -838,6 +857,18 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
     <span class="n">hi</span> <span class="o">=</span> <span class="n">fs</span> <span class="o">/</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  D</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">lo</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> - </span><span class="si">{</span><span class="n">hi</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  A</span><span class="si">{</span><span class="n">level</span><span class="si">}</span><span class="s1">: 0 - </span><span class="si">{</span><span class="n">fs</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/67fc791423de79639c1ca59eca2983d3388f6d0d94185d2724b7298b46929f66.png" src="_images/67fc791423de79639c1ca59eca2983d3388f6d0d94185d2724b7298b46929f66.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling rate: 256 Hz
+  D1: 64.0 - 128.0 Hz
+  D2: 32.0 - 64.0 Hz
+  D3: 16.0 - 32.0 Hz
+  D4: 8.0 - 16.0 Hz
+  D5: 4.0 - 8.0 Hz
+  A5: 0 - 4.0 Hz
 </pre></div>
 </div>
 </div>
@@ -883,7 +914,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p>Let’s test all three on a synthetic noisy EEG.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Build synthetic test signal ---</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Build synthetic test signal ---</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span> <span class="n">dur</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -892,13 +923,13 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="c1"># Clean EEG: alpha + theta + light background</span>
 <span class="n">clean</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">10</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
 
-<span class="c1"># Blink artifacts</span>
-<span class="n">blinks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">bt</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">]:</span>
-    <span class="n">blinks</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="n">bt</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">0.04</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># # Blink artifacts</span>
+<span class="c1"># blinks = np.zeros(N)</span>
+<span class="c1"># for bt in [0.8, 1.6, 2.5, 3.3]:</span>
+<span class="c1">#     blinks += np.random.uniform(8, 15) * np.exp(-0.5*((t - bt)/(0.04))**2)</span>
 
 <span class="n">noise</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">noisy</span> <span class="o">=</span> <span class="n">clean</span> <span class="o">+</span> <span class="n">blinks</span> <span class="o">+</span> <span class="n">noise</span>
+<span class="n">noisy</span> <span class="o">=</span> <span class="n">clean</span> <span class="o">+</span> <span class="n">noise</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">clean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Clean EEG (ground truth)&#39;</span><span class="p">)</span>
@@ -910,10 +941,13 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/219234574f0dfc2cfe1fab219fc875430d5100bcc35f963437d73f20bf8b67a0.png" src="_images/219234574f0dfc2cfe1fab219fc875430d5100bcc35f963437d73f20bf8b67a0.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Threshold computation helpers ───────────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Threshold computation helpers ───────────────────────────────────────────</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_sigma_mad</span><span class="p">(</span><span class="n">detail_coeffs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Noise std estimate from finest detail coefficients (MAD).&quot;&quot;&quot;</span>
@@ -956,10 +990,15 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Threshold functions defined.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Apply all three denoising methods ───────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Apply all three denoising methods ───────────────────────────────────────</span>
 
 <span class="n">wavelet</span> <span class="o">=</span> <span class="s1">&#39;db4&#39;</span>
 <span class="n">level</span> <span class="o">=</span> <span class="mi">7</span>
@@ -991,10 +1030,17 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> universal:  RMSE = 0.6108,  R = 0.9572
+      sure:  RMSE = 0.3543,  R = 0.9758
+   minimax:  RMSE = 0.3659,  R = 0.9786
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Visual comparison ───────────────────────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Visual comparison ───────────────────────────────────────────────────────</span>
 <span class="n">method_colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;universal&#39;</span><span class="p">:</span> <span class="s1">&#39;#9b59b6&#39;</span><span class="p">,</span> <span class="s1">&#39;sure&#39;</span><span class="p">:</span> <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span> <span class="s1">&#39;minimax&#39;</span><span class="p">:</span> <span class="s1">&#39;#e67e22&#39;</span><span class="p">}</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1021,10 +1067,13 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/12852b18dd03644266359f258d039a288b49480615a02e6e2afc0377aae6c55f.png" src="_images/12852b18dd03644266359f258d039a288b49480615a02e6e2afc0377aae6c55f.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Hard vs Soft thresholding comparison ────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Hard vs Soft thresholding comparison ────────────────────────────────────</span>
 <span class="n">lam</span> <span class="o">=</span> <span class="n">threshold_universal</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">denoise_mode</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">lam</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">):</span>
@@ -1057,6 +1106,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/18726b669d1320d7f744a820822c4aedf01e43367c0fc0ec0a0ab246cbcc26c9.png" src="_images/18726b669d1320d7f744a820822c4aedf01e43367c0fc0ec0a0ab246cbcc26c9.png" />
+</div>
 </div>
 </section>
 </section>
@@ -1066,7 +1118,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p>Different mother wavelets produce different results. Let’s test several on the same noisy signal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Compare wavelet families for denoising ──────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Compare wavelet families for denoising ──────────────────────────────────</span>
 <span class="n">test_wavelets</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;haar&#39;</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="s1">&#39;db8&#39;</span><span class="p">,</span> <span class="s1">&#39;sym5&#39;</span><span class="p">,</span> <span class="s1">&#39;sym8&#39;</span><span class="p">,</span> <span class="s1">&#39;coif3&#39;</span><span class="p">,</span> <span class="s1">&#39;coif5&#39;</span><span class="p">]</span>
 <span class="n">level</span> <span class="o">=</span> <span class="mi">7</span>
 
@@ -1107,6 +1159,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/c088562f6cf6ac9ea79d2cc81ef4e5ac521b5d9ff51da11ec46546322c7b3858.png" src="_images/c088562f6cf6ac9ea79d2cc81ef4e5ac521b5d9ff51da11ec46546322c7b3858.png" />
+</div>
 </div>
 </section>
 <hr class="docutils" />
@@ -1115,7 +1170,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p>Too few levels = can’t separate low-frequency artifacts from signal. Too many = risk distorting slow components.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Level sweep ─────────────────────────────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Level sweep ─────────────────────────────────────────────────────────────</span>
 <span class="n">levels</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
 <span class="n">level_rmse</span><span class="p">,</span> <span class="n">level_r</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 
@@ -1144,6 +1199,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/d76963d9b64b4ef5e4421b49519816fa3e9bcd2714e3c24e854f75de14372000.png" src="_images/d76963d9b64b4ef5e4421b49519816fa3e9bcd2714e3c24e854f75de14372000.png" />
+</div>
 </div>
 </section>
 <hr class="docutils" />
@@ -1161,43 +1219,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Compression demo ────────────────────────────────────────────────────────</span>
-<span class="n">coeffs_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">c</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">)])</span>
-<span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeffs_flat</span><span class="p">)</span>
-
-<span class="n">keep_pcts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_pcts</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">keep_pcts</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">pct</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">keep_pcts</span><span class="p">):</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-    <span class="c1"># Zero out smallest coefficients</span>
-    <span class="n">all_c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">ci</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">c</span><span class="p">])</span>
-    <span class="n">thresh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">all_c</span><span class="p">),</span> <span class="mi">100</span> <span class="o">-</span> <span class="n">pct</span><span class="p">)</span>
-    <span class="n">c_compressed</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">c</span><span class="p">:</span>
-        <span class="n">ci_new</span> <span class="o">=</span> <span class="n">ci</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">ci_new</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">ci_new</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">thresh</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">c_compressed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ci_new</span><span class="p">)</span>
-    
-    <span class="n">recon</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">c_compressed</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">signal</span><span class="p">)]</span>
-    <span class="n">nonzero</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">ci</span><span class="p">)</span> <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">c_compressed</span><span class="p">)</span>
-    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">signal</span> <span class="o">-</span> <span class="n">recon</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-    
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#bdc3c7&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">recon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3498db&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Keep </span><span class="si">{</span><span class="n">pct</span><span class="si">}</span><span class="s1">% coefficients (</span><span class="si">{</span><span class="n">nonzero</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s1">)  |  RMSE = </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;uV&#39;</span><span class="p">)</span>
-
-<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Wavelet Compression: keeping only the largest coefficients&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Feature extraction: band energy per decomposition level ─────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Feature extraction: band energy per decomposition level ─────────────────</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span> <span class="n">t_fe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
 
@@ -1224,6 +1246,9 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/4e1072ffff8ba84fc310651ab0681dbf755dd597f5322163667d4d227b48731c.png" src="_images/4e1072ffff8ba84fc310651ab0681dbf755dd597f5322163667d4d227b48731c.png" />
+</div>
 </div>
 </section>
 </section>
@@ -1233,7 +1258,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <p>Final demo: apply all three threshold methods + compare wavelet choices on a longer, more realistic synthetic EEG with multiple artifact types.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Realistic synthetic EEG ─────────────────────────────────────────────────</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Realistic synthetic EEG ─────────────────────────────────────────────────</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span> <span class="n">dur</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">t_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span>
@@ -1255,7 +1280,7 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="c1"># Denoise with all 3 methods</span>
 <span class="n">results_r</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;universal&#39;</span><span class="p">,</span> <span class="s1">&#39;sure&#39;</span><span class="p">,</span> <span class="s1">&#39;minimax&#39;</span><span class="p">]:</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">noisy_r</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">noisy_r</span><span class="p">,</span> <span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">_sigma_mad</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
     <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
@@ -1289,6 +1314,14 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">();</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> universal:  RMSE = 3.2153,  R = 0.2509
+      sure:  RMSE = 3.2066,  R = 0.3423
+   minimax:  RMSE = 3.2110,  R = 0.3074
+</pre></div>
+</div>
+<img alt="_images/1c32c139b4d70a1c7f94d05e26b85effebb618dfd288a7fdd6ae619633930e31.png" src="_images/1c32c139b4d70a1c7f94d05e26b85effebb618dfd288a7fdd6ae619633930e31.png" />
 </div>
 </div>
 </section>
@@ -1332,6 +1365,13 @@ where \)</span>C_f<span class="math notranslate nohighlight">\( is the wavelet's
 </tbody>
 </table>
 </div>
+<p>DWT (wavedec)	CWT (cwt)
+Input wavelet	Discrete only (db4, sym5, haar…)	Continuous only (cmor, morl, mexh…)
+Output	List of coefficient arrays (one per level)	2D matrix (scales x time)
+Inverse	pywt.waverec	No built-in inverse in pywt
+Use case	Denoising, compression	Time-frequency analysis (scalograms)
+The cmor wavelet needs bandwidth and centre frequency parameters: ‘cmor{B}-{C}’, e.g. ‘cmor1.5-1.0’. Just ‘cmor’ will error.</p>
+<p>For denoising, stick with DWT (wavedec + db4/sym5). CWT is great for visualising time-frequency content (scalograms) but isn’t practical for denoising since pywt doesn’t provide cwt inverse reconstruction.</p>
 </section>
 </section>
 
