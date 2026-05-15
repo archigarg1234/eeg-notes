@@ -1,6 +1,13 @@
 format: jb-book
 root: intro
-chapters:
-- file: band_power_lecture
-- file: Artifact_rejection
-- file: Intro_to_Signals
+parts:
+- caption: Foundations
+  chapters:
+  - file: Intro_to_Signals
+- caption: Analysis
+  chapters:
+  - file: band_power_lecture
+- caption: Preprocessing
+  chapters:
+  - file: Wavelet_Transform
+  - file: Artifact_rejection

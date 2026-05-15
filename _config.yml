@@ -2,4 +2,20 @@ title: "EEG Notes"
 author: "Archi"
 logo: ""
 execute:
-  execute_notebooks: "off"   # use "off" to show existing outputs, "auto" to re-run
+  execute_notebooks: "off"
+
+sphinx:
+  config:
+    html_theme_options:
+      use_fullscreen_button: true
+      use_repository_button: true
+      repository_url: "https://github.com/archigarg1234/eeg-notes"
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+launch_buttons:
+  notebook_interface: "classic"
+  colab_url: "https://colab.research.google.com"
+
+repository:
+  url: "https://github.com/archigarg1234/eeg-notes"
+  branch: master

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>1. Historical Context of EEG &#8212; EEG Notes</title>
+    <title>Artifact Rejection &#8212; EEG Notes</title>
   
   
   
@@ -67,8 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'Artifact_rejection';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction to Signals &amp; Signal Processing" href="Intro_to_Signals.html" />
-    <link rel="prev" title="Band Power: EEG" href="band_power_lecture.html" />
+    <link rel="prev" title="The Wavelet Transform" href="Wavelet_Transform.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -107,8 +106,8 @@ const thebe_selector_output = ".output, .cell_output"
          class="form-control"
          name="q"
          id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
+         placeholder="Search..."
+         aria-label="Search..."
          autocomplete="off"
          autocorrect="off"
          autocapitalize="off"
@@ -161,22 +160,8 @@ const thebe_selector_output = ".output, .cell_output"
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    <no title>
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="band_power_lecture.html">Band Power: EEG</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Historical Context of EEG</a></li>
-
-
-
-
-
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundations</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Intro_to_Signals.html">Introduction to Signals &amp; Signal Processing</a></li>
 
 
@@ -185,6 +170,16 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Analysis</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="band_power_lecture.html">Band Power: EEG |FFT| Welch| Hilbert</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Preprocessing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Wavelet_Transform.html">The Wavelet Transform</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Artifact Rejection</a></li>
 
 
 
@@ -230,6 +225,21 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
+
+
+<a href="https://github.com/archigarg1234/eeg-notes" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
 
 
 
@@ -327,7 +337,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>1. Historical Context of EEG</h1>
+    <h1>Artifact Rejection</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -337,11 +347,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Historical Context of EEG</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Artifact Rejection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-context-of-eeg">1. Historical Context of EEG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -378,29 +391,31 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="historical-context-of-eeg">
-<h1>1. Historical Context of EEG<a class="headerlink" href="#historical-context-of-eeg" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="artifact-rejection">
+<h1>Artifact Rejection<a class="headerlink" href="#artifact-rejection" title="Permalink to this heading">#</a></h1>
+<section id="historical-context-of-eeg">
+<h2>1. Historical Context of EEG<a class="headerlink" href="#historical-context-of-eeg" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <ul class="simple">
 <li><p><strong>1929:</strong> Hans Berger recorded the first human <strong>electroencephalogram (EEG)</strong>, discovering the alpha wave.</p></li>
 <li><p><strong>1960s:</strong> The <strong>computerization</strong> of EEG</p></li>
 </ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="introduction-to-eeg-signals">
-<h1>2. Introduction to EEG Signals<a class="headerlink" href="#introduction-to-eeg-signals" title="Permalink to this heading">#</a></h1>
+<section id="introduction-to-eeg-signals">
+<h2>2. Introduction to EEG Signals<a class="headerlink" href="#introduction-to-eeg-signals" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <section id="what-is-eeg">
-<h2>What is EEG?<a class="headerlink" href="#what-is-eeg" title="Permalink to this heading">#</a></h2>
+<h3>What is EEG?<a class="headerlink" href="#what-is-eeg" title="Permalink to this heading">#</a></h3>
 <p>EEG signals are inherently <strong>non-stationary</strong>, meaning their statistical properties (like mean and variance) change over time.</p>
 <blockquote>
 <div><p><strong>Definition:</strong> Electroencephalography is the measurement, amplification, and registration of fluctuating electrical fields produced by the brain as a function of time.</p>
 </div></blockquote>
 <section id="the-spatio-temporal-trade-off">
-<h3>The Spatio-Temporal Trade-off<a class="headerlink" href="#the-spatio-temporal-trade-off" title="Permalink to this heading">#</a></h3>
+<h4>The Spatio-Temporal Trade-off<a class="headerlink" href="#the-spatio-temporal-trade-off" title="Permalink to this heading">#</a></h4>
 <p>EEG is characterized by its <strong>high temporal resolution</strong> (capturing changes in milliseconds) but lacks <strong>spatial resolution</strong> (difficulty pinpointing the exact cortical source of a signal).</p>
 </section>
 <section id="eeg-artifacts">
-<h3>EEG Artifacts<a class="headerlink" href="#eeg-artifacts" title="Permalink to this heading">#</a></h3>
+<h4>EEG Artifacts<a class="headerlink" href="#eeg-artifacts" title="Permalink to this heading">#</a></h4>
 <p>The primary challenge in EEG analysis is the presence of <strong>artifacts</strong>—signals not originating from the brain. Common examples include:</p>
 <ul class="simple">
 <li><p><strong>Eyeblinks</strong></p></li>
@@ -467,6 +482,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -563,7 +579,7 @@ Choice of wavelet matters. Imagine zooming in and out of a signal with different
 <span class="n">noisy_eeg</span> <span class="o">=</span> <span class="n">clean_eeg</span> <span class="o">+</span> <span class="n">blink</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
 
 <span class="c1"># --- DWT Denoising with soft thresholding ---</span>
-<span class="n">wavelet</span> <span class="o">=</span> <span class="s2">&quot;db4&quot;</span>
+<span class="n">wavelet</span> <span class="o">=</span> <span class="s2">&quot;db5&quot;</span>
 <span class="n">level</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">noisy_eeg</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
 
@@ -615,8 +631,8 @@ Choice of wavelet matters. Imagine zooming in and out of a signal with different
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/38579d0883ae0dd0a3cd53460fd6025b9bba6730d7be42c0df389bfb47d7ce38.png" src="_images/38579d0883ae0dd0a3cd53460fd6025b9bba6730d7be42c0df389bfb47d7ce38.png" />
-<img alt="_images/cbd0ed185ecef2a421ec0bf2c5e2f52c11bd19ca9043184b49516fb1360aa9a5.png" src="_images/cbd0ed185ecef2a421ec0bf2c5e2f52c11bd19ca9043184b49516fb1360aa9a5.png" />
+<img alt="_images/68ff06329650a8ca68e94dde259560cc82183ee8c7c6e07fad423ab2cde6bd6a.png" src="_images/68ff06329650a8ca68e94dde259560cc82183ee8c7c6e07fad423ab2cde6bd6a.png" />
+<img alt="_images/e388915d02807c4c4b3cdf968f8ec61493ee47a62b9d2e0bbc4b47649d7d8cc2.png" src="_images/e388915d02807c4c4b3cdf968f8ec61493ee47a62b9d2e0bbc4b47649d7d8cc2.png" />
 </div>
 </div>
 </section>
@@ -627,7 +643,11 @@ Choice of wavelet matters. Imagine zooming in and out of a signal with different
 <p>Unlike Wavelet Transforms which use predefined basis functions, <strong>EMD</strong> is a data-driven approach. It discovers oscillatory modes directly from the signal itself.</p>
 <section id="what-are-imfs">
 <h2>What are IMFs?<a class="headerlink" href="#what-are-imfs" title="Permalink to this heading">#</a></h2>
-<p>EMD decomposes a signal into <strong>Intrinsic Mode Functions (IMFs)</strong>. Each IMF is:</p>
+<p>EMD decomposes a signal into <strong>Intrinsic Mode Functions (IMFs)</strong>.</p>
+<p>Mode: Refers to a portion of the signal that represents a specific oscillation or trend.</p>
+<p>Decomposition: The process of separating a signal into simpler, physically meaningful components.</p>
+<p>IMFs are the components extracted from the signal during EMD. Each IMF represents a simple oscillatory mode embedded in the data.</p>
+<p>Each IMF is:</p>
 <ul class="simple">
 <li><p><strong>Locally symmetric</strong></p></li>
 <li><p><strong>Narrow-band-ish</strong></p></li>
@@ -635,6 +655,9 @@ Choice of wavelet matters. Imagine zooming in and out of a signal with different
 </ul>
 <p>The signal is represented as:
 $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \text{IMF}_i + \text{residual}\)</span>$</p>
+<p>IMFs: Ordered from highest to lowest frequency (smallest to largest scales).</p>
+<p>Residual: Represents the trend or mean of the signal after all IMFs are extracted.</p>
+<p><img alt="image.png" src="attachment:image.png" /></p>
 </section>
 <section id="why-use-emd-for-eeg">
 <h2>Why use EMD for EEG?<a class="headerlink" href="#why-use-emd-for-eeg" title="Permalink to this heading">#</a></h2>
@@ -656,67 +679,217 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">PyEMD</span><span class="w"> </span><span class="kn">import</span> <span class="n">EMD</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearsonr</span><span class="p">,</span> <span class="n">kurtosis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">welch</span>
 
 <span class="c1"># --- Create a synthetic EEG-like signal ---</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">fs</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
 
-<span class="c1"># Multi-component signal: alpha + slow drift + artifact</span>
-<span class="n">signal</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="mf">0.8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>                     <span class="c1"># Alpha rhythm</span>
-    <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>                    <span class="c1"># Beta rhythm</span>
-    <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>                   <span class="c1"># Slow drift / DC artifact</span>
-    <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.04</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>       <span class="c1"># Blink artifact</span>
-    <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>                        <span class="c1"># Noise</span>
-<span class="p">)</span>
+<span class="c1"># Clean EEG (ground truth for evaluation)</span>
+<span class="n">clean_eeg</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">22</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># Artifacts</span>
+<span class="n">blink</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.04</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">drift</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="n">signal</span> <span class="o">=</span> <span class="n">clean_eeg</span> <span class="o">+</span> <span class="n">blink</span> <span class="o">+</span> <span class="n">drift</span> <span class="o">+</span> <span class="n">noise</span>
 
 <span class="c1"># --- Run EMD ---</span>
 <span class="n">emd</span> <span class="o">=</span> <span class="n">EMD</span><span class="p">()</span>
 <span class="n">imfs</span> <span class="o">=</span> <span class="n">emd</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-
-<span class="c1"># --- Plot the signal and its IMFs ---</span>
 <span class="n">n_imfs</span> <span class="o">=</span> <span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># IMF REJECTION METHODS</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+
+<span class="c1"># --- 1. Sample Entropy (low = regular/artifact) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">r_frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">r_frac</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">N</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_count</span><span class="p">(</span><span class="n">tl</span><span class="p">):</span>
+        <span class="n">templates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tl</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">templates</span><span class="p">)):</span>
+            <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">templates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">templates</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dists</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">_count</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">_count</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">A</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">A</span> <span class="o">/</span> <span class="n">B</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">largest_gap_mask</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">low_is_artifact</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flag components below (or above) the largest gap in sorted values.&quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">sorted_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">low_is_artifact</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">sorted_vals</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">]</span>
+    <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sorted_vals</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">diffs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">sorted_idx</span><span class="p">[:</span><span class="n">k</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">mask</span>
+
+<span class="n">entropies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sample_entropy</span><span class="p">(</span><span class="n">imf</span><span class="p">[:</span><span class="mi">200</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+<span class="n">mask_entropy</span> <span class="o">=</span> <span class="n">largest_gap_mask</span><span class="p">(</span><span class="n">entropies</span><span class="p">,</span> <span class="n">low_is_artifact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1"># --- 2. Correlation with original signal (low |r| = artifact) ---</span>
+<span class="n">correlations</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">imf</span><span class="p">,</span> <span class="n">signal</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+<span class="n">mask_corr</span> <span class="o">=</span> <span class="n">largest_gap_mask</span><span class="p">(</span><span class="n">correlations</span><span class="p">,</span> <span class="n">low_is_artifact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1"># --- 3. Energy ratio (unusually high energy = blink artifact) ---</span>
+<span class="n">energies</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imf</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+<span class="n">energy_ratio</span> <span class="o">=</span> <span class="n">energies</span> <span class="o">/</span> <span class="n">energies</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">energy_thresh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">energy_ratio</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">energy_ratio</span><span class="p">)</span>
+<span class="n">mask_energy</span> <span class="o">=</span> <span class="n">energy_ratio</span> <span class="o">&gt;</span> <span class="n">energy_thresh</span>
+
+
+<span class="c1"># --- 4. Kurtosis (high kurtosis = sharp transients like blinks) ---</span>
+<span class="n">kurt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">imf</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+<span class="n">mask_kurt</span> <span class="o">=</span> <span class="n">kurt</span> <span class="o">&gt;</span> <span class="mi">5</span>
+
+
+<span class="c1"># --- 5. Dominant frequency (&lt; 2 Hz = drift artifact) ---</span>
+<span class="n">dom_freqs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">imf</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imf</span><span class="p">)))</span>
+    <span class="n">dom_freqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">psd</span><span class="p">)])</span>
+<span class="n">dom_freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dom_freqs</span><span class="p">)</span>
+<span class="n">mask_freq</span> <span class="o">=</span> <span class="n">dom_freqs</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
+
+
+<span class="c1"># --- 6. Combined vote (artifact if 2+ methods agree) ---</span>
+<span class="n">votes</span> <span class="o">=</span> <span class="p">(</span><span class="n">mask_entropy</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">mask_corr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">mask_energy</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">mask_kurt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span>
+         <span class="n">mask_freq</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="n">mask_combined</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PRINT DIAGNOSTICS TABLE</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+
+<span class="n">all_methods</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span>     <span class="n">mask_entropy</span><span class="p">,</span>
+    <span class="s1">&#39;Correlation&#39;</span><span class="p">:</span> <span class="n">mask_corr</span><span class="p">,</span>
+    <span class="s1">&#39;Energy&#39;</span><span class="p">:</span>      <span class="n">mask_energy</span><span class="p">,</span>
+    <span class="s1">&#39;Kurtosis&#39;</span><span class="p">:</span>    <span class="n">mask_kurt</span><span class="p">,</span>
+    <span class="s1">&#39;Frequency&#39;</span><span class="p">:</span>   <span class="n">mask_freq</span><span class="p">,</span>
+    <span class="s1">&#39;Combined&#39;</span><span class="p">:</span>    <span class="n">mask_combined</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;IMF&#39;</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;SampEn&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;|r|&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;E%&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Kurt&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;DomHz&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> │ &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">all_methods</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;─&quot;</span> <span class="o">*</span> <span class="mi">95</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">entropies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">correlations</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">energy_ratio</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">7.2f</span><span class="si">}</span><span class="s2">% </span><span class="si">{</span><span class="n">kurt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">dom_freqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2"> │ &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">all_methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;  ██&quot;</span> <span class="k">if</span> <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;   ·&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PLOT: IMFs coloured by combined artifact mask</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Signal&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;μV&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;uV&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">):</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;teal&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMF </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">axes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;μV&quot;</span><span class="p">)</span>
+    <span class="n">is_art</span> <span class="o">=</span> <span class="n">mask_combined</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#e74c3c&quot;</span> <span class="k">if</span> <span class="n">is_art</span> <span class="k">else</span> <span class="s2">&quot;teal&quot;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;ARTIFACT&quot;</span> <span class="k">if</span> <span class="n">is_art</span> <span class="k">else</span> <span class="s2">&quot;signal&quot;</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">  |  SampEn=</span><span class="si">{</span><span class="n">entropies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Kurt=</span><span class="si">{</span><span class="n">kurt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;DomHz=</span><span class="si">{</span><span class="n">dom_freqs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">  Votes=</span><span class="si">{</span><span class="n">votes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">/5  [</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;uV&quot;</span><span class="p">)</span>
 
 <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;EMD Decomposition of Synthetic EEG&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;EMD — Combined Artifact Detection (2+/5 votes)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="c1"># --- Reconstruct without artifact-heavy IMFs ---</span>
-<span class="c1"># Typically the first IMF captures high-freq noise, and the last captures slow drift</span>
-<span class="c1"># Remove IMF 1 (noise) and last IMF (drift) as a simple demo</span>
-<span class="n">clean_imfs</span> <span class="o">=</span> <span class="n">imfs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">reconstructed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">clean_imfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">fig2</span><span class="p">,</span> <span class="n">axes2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Signal&quot;</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">reconstructed</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkorange&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Reconstructed (removed IMF 1 &amp; last IMF)&quot;</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span> <span class="o">-</span> <span class="n">reconstructed</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Removed Components&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes2</span><span class="p">:</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;μV&quot;</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># COMPARE ALL METHODS: reconstruction vs clean ground truth</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+
+<span class="n">method_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span> <span class="s1">&#39;#9b59b6&#39;</span><span class="p">,</span> <span class="s1">&#39;Correlation&#39;</span><span class="p">:</span> <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span> <span class="s1">&#39;Energy&#39;</span><span class="p">:</span> <span class="s1">&#39;#e67e22&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Kurtosis&#39;</span><span class="p">:</span> <span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">:</span> <span class="s1">&#39;#1abc9c&#39;</span><span class="p">,</span> <span class="s1">&#39;Combined&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_methods</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+                          <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_methods</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#7f8c8d&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Noisy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">clean_eeg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clean (truth)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original vs Clean&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;uV&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;Method&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Removed IMFs&#39;</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;RMSE&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;R&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;─&quot;</span> <span class="o">*</span> <span class="mi">55</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_methods</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">recon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">clean_eeg</span> <span class="o">-</span> <span class="n">recon</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">clean_eeg</span><span class="p">,</span> <span class="n">recon</span><span class="p">)</span>
+    <span class="n">removed</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">)</span> <span class="k">if</span> <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">clean_eeg</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clean&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">recon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">method_colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">  |  Removed: IMF </span><span class="si">{</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span><span class="si">}</span><span class="s1">  |  RMSE=</span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">  R=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;uV&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> IMF </span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span><span class="si">:</span><span class="s2">&lt;16</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ffef421be940c851047a44f8e2bd46c893ed1c02ba4700f4c0c478c0c408dce9.png" src="_images/ffef421be940c851047a44f8e2bd46c893ed1c02ba4700f4c0c478c0c408dce9.png" />
-<img alt="_images/adfd1b5c37994f6051ecacec3f3556243cdf271ef895b63798b520c309c8e6c4.png" src="_images/adfd1b5c37994f6051ecacec3f3556243cdf271ef895b63798b520c309c8e6c4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>IMF      SampEn      |r|       E%     Kurt    DomHz │ Entro  Corre  Energ  Kurto  Frequ  Combi
+───────────────────────────────────────────────────────────────────────────────────────────────
+IMF 1    1.5041   0.1131    1.07%    -0.94    98.00 │     ·    ██     ·     ·     ·     · 
+IMF 2    0.9260   0.2262    3.86%    -0.58    22.00 │     ·     ·     ·     ·     ·     · 
+IMF 3    0.5384   0.3623   16.10%    -0.83    10.00 │     ·     ·     ·     ·     ·     · 
+IMF 4    0.4247   0.2338    5.39%     2.89     5.00 │     ·     ·     ·     ·     ·     · 
+IMF 5    0.3016   0.1191    3.36%     3.60     2.00 │    ██    ██     ·     ·     ·    ██ 
+IMF 6    0.0325   0.7806   61.28%    -1.32     1.00 │    ██     ·    ██     ·    ██    ██ 
+IMF 7    0.0123   0.1359    8.93%    -0.58     1.00 │    ██    ██     ·     ·    ██    ██ 
+</pre></div>
+</div>
+<img alt="_images/dfbf1b86ee7463d67042f8e6f45b5ea042d828a92018d01f960e4b315d965f9a.png" src="_images/dfbf1b86ee7463d67042f8e6f45b5ea042d828a92018d01f960e4b315d965f9a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Method          Removed IMFs             RMSE        R
+───────────────────────────────────────────────────────
+Entropy         IMF 5,6,7              0.3505   0.8746
+Correlation     IMF 1,5,7              1.1828   0.4758
+Energy          IMF 6                  0.6355   0.7477
+Kurtosis        IMF                    1.1897   0.4714
+Frequency       IMF 6,7                0.4710   0.8003
+Combined        IMF 5,6,7              0.3505   0.8746
+</pre></div>
+</div>
+<img alt="_images/91a6340d06115634ba987343cd51bf086a624d82b5cf67b20f4f071e0199a144.png" src="_images/91a6340d06115634ba987343cd51bf086a624d82b5cf67b20f4f071e0199a144.png" />
 </div>
 </div>
 </section>
@@ -744,71 +917,210 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
 <p><strong>Complete Ensemble EMD with Adaptive Noise (CEEMDAN)</strong> is a further refinement. It uses complementary positive and negative noise pairs to reduce reconstruction error and computational cost, providing a more complete and stable decomposition.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">PyEMD</span><span class="w"> </span><span class="kn">import</span> <span class="n">EMD</span><span class="p">,</span> <span class="n">EEMD</span><span class="p">,</span> <span class="n">CEEMDAN</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">pearsonr</span><span class="p">,</span> <span class="n">kurtosis</span>
 
-<span class="c1"># --- Synthetic signal with mode-mixing-prone components ---</span>
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="mi">256</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">fs</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span>
 
-<span class="c1"># Intermittent high-freq burst causes mode mixing in plain EMD</span>
-<span class="n">signal</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
-    <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">t</span> <span class="o">&gt;</span> <span class="mf">1.5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">),</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># intermittent burst</span>
-    <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
-<span class="p">)</span>
+<span class="c1"># Clean signal (ground truth — signal without the burst artifact)</span>
+<span class="c1"># Realistic clean EEG: multiple rhythms with amplitude modulation</span>
+<span class="c1"># Clean = signal without the intermittent burst artifact</span>
+<span class="n">clean</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+         <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">30</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+         <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 
-<span class="c1"># --- Run all three methods ---</span>
-<span class="n">emd</span> <span class="o">=</span> <span class="n">EMD</span><span class="p">()</span>
-<span class="n">eemd</span> <span class="o">=</span> <span class="n">EEMD</span><span class="p">(</span><span class="n">trials</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">noise_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">ceemdan</span> <span class="o">=</span> <span class="n">CEEMDAN</span><span class="p">(</span><span class="n">trials</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_all_masks</span><span class="p">(</span><span class="n">imfs</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">fs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute all 5 rejection masks + combined for a set of IMFs.&quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="n">imfs_emd</span> <span class="o">=</span> <span class="n">emd</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">imfs_eemd</span> <span class="o">=</span> <span class="n">eemd</span><span class="o">.</span><span class="n">eemd</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-<span class="n">imfs_ceemdan</span> <span class="o">=</span> <span class="n">ceemdan</span><span class="o">.</span><span class="n">ceemdan</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="c1"># 1. Entropy</span>
+    <span class="n">ent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sample_entropy</span><span class="p">(</span><span class="n">imf</span><span class="p">[:</span><span class="mi">200</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+    <span class="n">m_ent</span> <span class="o">=</span> <span class="n">largest_gap_mask</span><span class="p">(</span><span class="n">ent</span><span class="p">,</span> <span class="n">low_is_artifact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="c1"># --- Compare first 4 IMFs from each method side-by-side ---</span>
-<span class="n">n_show</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">imfs_emd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">imfs_eemd</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">imfs_ceemdan</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_show</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="n">n_show</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># 2. Correlation</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">imf</span><span class="p">,</span> <span class="n">signal</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+    <span class="n">m_corr</span> <span class="o">=</span> <span class="n">largest_gap_mask</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">low_is_artifact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">methods</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;EMD&quot;</span><span class="p">,</span> <span class="n">imfs_emd</span><span class="p">,</span> <span class="s2">&quot;steelblue&quot;</span><span class="p">),</span>
-           <span class="p">(</span><span class="s2">&quot;EEMD&quot;</span><span class="p">,</span> <span class="n">imfs_eemd</span><span class="p">,</span> <span class="s2">&quot;darkorange&quot;</span><span class="p">),</span>
-           <span class="p">(</span><span class="s2">&quot;CEEMDAN&quot;</span><span class="p">,</span> <span class="n">imfs_ceemdan</span><span class="p">,</span> <span class="s2">&quot;teal&quot;</span><span class="p">)]</span>
+    <span class="c1"># 3. Energy</span>
+    <span class="n">energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imf</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+    <span class="n">eratio</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">/</span> <span class="n">energy</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">m_energy</span> <span class="o">=</span> <span class="n">eratio</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">eratio</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">eratio</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">imfs</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">methods</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_show</span><span class="p">):</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">imfs</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">row</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMF </span><span class="si">{</span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># 4. Kurtosis</span>
+    <span class="n">kurt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">imf</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+    <span class="n">m_kurt</span> <span class="o">=</span> <span class="n">kurt</span> <span class="o">&gt;</span> <span class="mi">5</span>
 
-<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;EMD vs EEMD vs CEEMDAN — Mode Mixing Comparison&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+    <span class="c1"># 5. Dominant frequency</span>
+    <span class="n">domf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">imf</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imf</span><span class="p">)))</span>
+        <span class="n">domf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">psd</span><span class="p">)])</span>
+    <span class="n">domf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">domf</span><span class="p">)</span>
+    <span class="n">m_freq</span> <span class="o">=</span> <span class="n">domf</span> <span class="o">&lt;</span> <span class="mf">2.0</span>
+
+    <span class="c1"># 6. Combined (2+ votes)</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="p">(</span><span class="n">m_ent</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">m_corr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">m_energy</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+             <span class="o">+</span> <span class="n">m_kurt</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">m_freq</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="n">m_combined</span> <span class="o">=</span> <span class="n">votes</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;Entropy&#39;</span><span class="p">:</span> <span class="n">m_ent</span><span class="p">,</span> <span class="s1">&#39;Correlation&#39;</span><span class="p">:</span> <span class="n">m_corr</span><span class="p">,</span> <span class="s1">&#39;Energy&#39;</span><span class="p">:</span> <span class="n">m_energy</span><span class="p">,</span>
+        <span class="s1">&#39;Kurtosis&#39;</span><span class="p">:</span> <span class="n">m_kurt</span><span class="p">,</span> <span class="s1">&#39;Frequency&#39;</span><span class="p">:</span> <span class="n">m_freq</span><span class="p">,</span> <span class="s1">&#39;Combined&#39;</span><span class="p">:</span> <span class="n">m_combined</span><span class="p">,</span>
+    <span class="p">},</span> <span class="p">{</span><span class="s1">&#39;ent&#39;</span><span class="p">:</span> <span class="n">ent</span><span class="p">,</span> <span class="s1">&#39;corr&#39;</span><span class="p">:</span> <span class="n">corr</span><span class="p">,</span> <span class="s1">&#39;eratio&#39;</span><span class="p">:</span> <span class="n">eratio</span><span class="p">,</span> <span class="s1">&#39;kurt&#39;</span><span class="p">:</span> <span class="n">kurt</span><span class="p">,</span> <span class="s1">&#39;domf&#39;</span><span class="p">:</span> <span class="n">domf</span><span class="p">,</span> <span class="s1">&#39;votes&#39;</span><span class="p">:</span> <span class="n">votes</span><span class="p">}</span>
+
+
+<span class="c1"># --- Run rejection on all three decompositions ---</span>
+<span class="n">decompositions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;EMD&#39;</span><span class="p">,</span>     <span class="n">imfs_emd</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;EEMD&#39;</span><span class="p">,</span>    <span class="n">imfs_eemd</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;CEEMDAN&#39;</span><span class="p">,</span> <span class="n">imfs_ceemdan</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">all_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">dec_name</span><span class="p">,</span> <span class="n">imfs</span> <span class="ow">in</span> <span class="n">decompositions</span><span class="p">:</span>
+    <span class="n">masks</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">compute_all_masks</span><span class="p">(</span><span class="n">imfs</span><span class="p">,</span><span class="n">signal</span> <span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+    <span class="n">all_results</span><span class="p">[</span><span class="n">dec_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;imfs&#39;</span><span class="p">:</span> <span class="n">imfs</span><span class="p">,</span> <span class="s1">&#39;masks&#39;</span><span class="p">:</span> <span class="n">masks</span><span class="p">,</span> <span class="s1">&#39;metrics&#39;</span><span class="p">:</span> <span class="n">metrics</span><span class="p">}</span>
+
+    <span class="c1"># Print diagnostics</span>
+    <span class="n">n_imfs</span> <span class="o">=</span> <span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">dec_name</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="n">n_imfs</span><span class="si">}</span><span class="s2"> IMFs)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">80</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;IMF&#39;</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;SampEn&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;|r|&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;E%&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Kurt&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;DomHz&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> | &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="si">:</span><span class="s2">&gt;5</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">masks</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">:</span><span class="s2">&lt;2</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;ent&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;corr&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;eratio&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">7.2f</span><span class="si">}</span><span class="s2">% </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;kurt&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2"> &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;domf&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">8.2f</span><span class="si">}</span><span class="s2"> | &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">masks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;  ##&quot;</span> <span class="k">if</span> <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;   .&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+
+
+    <span class="c1"># --- Grand comparison: RMSE &amp; R for every decomposition x rejection method ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Decomposition&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Rejection&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;Removed&#39;</span><span class="si">:</span><span class="s2">&lt;18</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;RMSE&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">&#39;R&#39;</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;=&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">summary_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">dec_name</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">all_results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">imfs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imfs&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">rej_name</span><span class="p">,</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;masks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">recon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">recon</span><span class="p">))</span>
+        <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">clean</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span> <span class="o">-</span> <span class="n">recon</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">clean</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">recon</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span> <span class="k">if</span> <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">removed</span><span class="p">:</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+        <span class="n">summary_results</span><span class="p">[(</span><span class="n">dec_name</span><span class="p">,</span> <span class="n">rej_name</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;recon&#39;</span><span class="p">:</span> <span class="n">recon</span><span class="p">,</span> <span class="s1">&#39;rmse&#39;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">}</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dec_name</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rej_name</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> IMF </span><span class="si">{</span><span class="n">removed</span><span class="si">:</span><span class="s2">&lt;14</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">70</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># --- Plot: Combined rejection for each decomposition ---</span>
+<span class="n">dec_colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;EMD&#39;</span><span class="p">:</span> <span class="s1">&#39;steelblue&#39;</span><span class="p">,</span> <span class="s1">&#39;EEMD&#39;</span><span class="p">:</span> <span class="s1">&#39;darkorange&#39;</span><span class="p">,</span> <span class="s1">&#39;CEEMDAN&#39;</span><span class="p">:</span> <span class="s1">&#39;teal&#39;</span><span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#7f8c8d&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Noisy&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">clean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clean (truth)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original vs Clean&#39;</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">);</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;uV&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">dec_name</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_results</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;masks&#39;</span><span class="p">][</span><span class="s1">&#39;Combined&#39;</span><span class="p">]</span>
+    <span class="n">imfs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imfs&#39;</span><span class="p">]</span>
+    <span class="n">recon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">clean</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">recon</span><span class="p">))</span>
+    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">clean</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span> <span class="o">-</span> <span class="n">recon</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">clean</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">recon</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
+    <span class="n">removed</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span> <span class="k">if</span> <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">or</span> <span class="s2">&quot;none&quot;</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">clean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Clean&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">recon</span><span class="p">)],</span> <span class="n">recon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">dec_colors</span><span class="p">[</span><span class="n">dec_name</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">dec_name</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">dec_name</span><span class="si">}</span><span class="s1"> (Combined vote)  |  Removed: IMF </span><span class="si">{</span><span class="n">removed</span><span class="si">}</span><span class="s1">  |  &#39;</span>
+                 <span class="sa">f</span><span class="s1">&#39;RMSE=</span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">  R=</span><span class="si">{</span><span class="n">r</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;uV&#39;</span><span class="p">);</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;EMD vs EEMD vs CEEMDAN — Combined Artifact Rejection&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1"># --- Reconstruction error comparison ---</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">reconstruction_error</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span> <span class="n">imfs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">signal</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reconstruction MSE:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  EMD:     </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span><span class="w"> </span><span class="n">imfs_emd</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  EEMD:    </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span><span class="w"> </span><span class="n">imfs_eemd</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  CEEMDAN: </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="p">(</span><span class="n">signal</span><span class="p">,</span><span class="w"> </span><span class="n">imfs_ceemdan</span><span class="p">)</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9d7e763f7aa62dd5b89218123ec208cdbb651bf800bc7230f0d626b043437c46.png" src="_images/9d7e763f7aa62dd5b89218123ec208cdbb651bf800bc7230f0d626b043437c46.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reconstruction MSE:
-  EMD:     0.000000
-  EEMD:    0.930218
-  CEEMDAN: 0.000000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+  EMD  (8 IMFs)
+================================================================================
+IMF      SampEn      |r|       E%     Kurt    DomHz | Entro  Corre  Energ  Kurto  Frequ  Combi
+--------------------------------------------------------------------------------
+IMF 1    1.2635   0.0161   47.35%     1.96    60.00 |     .    ##     .     .     .     . 
+IMF 2    0.7707   0.0375    9.72%    -0.92    30.00 |     .    ##     .     .     .     . 
+IMF 3    0.6099   0.3899   39.75%    -1.31    10.00 |     .     .     .     .     .     . 
+IMF 4    0.4443   0.0456    2.36%     2.85     5.00 |     .    ##     .     .     .     . 
+IMF 5    0.2361   0.0059    0.67%     0.66     3.00 |    ##    ##     .     .     .    ## 
+IMF 6    0.0517   0.1113    0.11%    -0.72     1.00 |    ##     .     .     .    ##    ## 
+IMF 7    0.0461   0.3578    0.01%    -1.21     1.00 |    ##     .     .     .    ##    ## 
+IMF 8    0.0122   0.2181    0.02%    -1.13     1.00 |    ##     .     .     .    ##    ## 
+
+================================================================================
+  EEMD  (9 IMFs)
+================================================================================
+IMF      SampEn      |r|       E%     Kurt    DomHz | Entro  Corre  Energ  Kurto  Frequ  Combi
+--------------------------------------------------------------------------------
+IMF 1    1.9262   0.0095   52.52%     0.41    60.00 |     .    ##    ##     .     .    ## 
+IMF 2    1.1566   0.0063   16.93%    -0.14    30.00 |     .    ##     .     .     .     . 
+IMF 3    0.6903   0.2501   16.59%    -0.38    10.00 |     .     .     .     .     .     . 
+IMF 4    0.5447   0.2864   11.69%    -0.31    10.00 |     .     .     .     .     .     . 
+IMF 5    0.2772   0.0019    1.35%    -0.21     3.00 |     .    ##     .     .     .     . 
+IMF 6    0.1294   0.1058    0.49%    -0.85     2.00 |    ##     .     .     .     .     . 
+IMF 7    0.0230   0.2013    0.25%    -0.82     1.00 |    ##     .     .     .    ##    ## 
+IMF 8    0.0129   0.0747    0.18%    -1.53     1.00 |    ##     .     .     .    ##    ## 
+IMF 9    0.0273   0.1459    0.01%    -1.26     1.00 |    ##     .     .     .    ##    ## 
+
+================================================================================
+  CEEMDAN  (8 IMFs)
+================================================================================
+IMF      SampEn      |r|       E%     Kurt    DomHz | Entro  Corre  Energ  Kurto  Frequ  Combi
+--------------------------------------------------------------------------------
+IMF 1    2.0458   0.0096   48.54%     2.28    60.00 |     .    ##     .     .     .     . 
+IMF 2    0.9356   0.0261    9.20%    -0.94    30.00 |     .    ##     .     .     .     . 
+IMF 3    0.4568   0.4132   40.90%    -1.47    10.00 |     .     .     .     .     .     . 
+IMF 4    0.2855   0.0638    0.98%     3.34     6.00 |     .    ##     .     .     .     . 
+IMF 5    0.1877   0.1040    0.31%    -0.10     2.00 |    ##     .     .     .     .     . 
+IMF 6    0.0543   0.2490    0.07%    -0.50     1.00 |    ##     .     .     .    ##    ## 
+IMF 7    0.0082   0.5121    0.00%    -0.42     1.00 |    ##     .     .     .    ##    ## 
+IMF 8    0.0061   0.0334    0.01%    -0.67     1.00 |    ##    ##     .     .    ##    ## 
+
+======================================================================
+Decomposition Rejection       Removed                RMSE        R
+======================================================================
+EMD          Entropy         IMF 5,6,7,8          0.7140   0.7570
+EMD          Correlation     IMF 1,2,4,5          0.4751   0.8198
+EMD          Energy          IMF none             0.7066   0.7624
+EMD          Kurtosis        IMF none             0.7066   0.7624
+EMD          Frequency       IMF 6,7,8            0.7080   0.7614
+EMD          Combined        IMF 5,6,7,8          0.7140   0.7570
+----------------------------------------------------------------------
+EEMD         Entropy         IMF 6,7,8,9          1.1776   0.5786
+EEMD         Correlation     IMF 1,2,5            0.5639   0.7696
+EEMD         Energy          IMF 1                0.7036   0.7390
+EEMD         Kurtosis        IMF none             1.1802   0.5798
+EEMD         Frequency       IMF 7,8,9            1.1810   0.5789
+EEMD         Combined        IMF 1,7,8,9          0.7026   0.7388
+----------------------------------------------------------------------
+CEEMDAN      Entropy         IMF 5,6,7,8          0.7097   0.7590
+CEEMDAN      Correlation     IMF 1,2,4,8          0.4348   0.8516
+CEEMDAN      Energy          IMF none             0.7066   0.7624
+CEEMDAN      Kurtosis        IMF none             0.7066   0.7624
+CEEMDAN      Frequency       IMF 6,7,8            0.7073   0.7616
+CEEMDAN      Combined        IMF 6,7,8            0.7073   0.7616
+----------------------------------------------------------------------
 </pre></div>
 </div>
+<img alt="_images/7fd566fb4debba700eabe4773cbb51d41071bb0e55b6f44ea44ab9479e37318b.png" src="_images/7fd566fb4debba700eabe4773cbb51d41071bb0e55b6f44ea44ab9479e37318b.png" />
 </div>
 </div>
 </section>
@@ -851,22 +1163,13 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="band_power_lecture.html"
+       href="Wavelet_Transform.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Band Power: EEG</p>
+        <p class="prev-next-title">The Wavelet Transform</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="Intro_to_Signals.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction to Signals &amp; Signal Processing</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -884,11 +1187,14 @@ $<span class="math notranslate nohighlight">\(\text{Signal} = \sum_{i=1}^{n} \te
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">1. Historical Context of EEG</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Artifact Rejection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#historical-context-of-eeg">1. Historical Context of EEG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-eeg-signals">2. Introduction to EEG Signals</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eeg">What is EEG?</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-spatio-temporal-trade-off">The Spatio-Temporal Trade-off</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eeg-artifacts">EEG Artifacts</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
