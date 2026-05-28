@@ -427,7 +427,7 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pywt</span>
@@ -471,6 +471,8 @@ document.write(`
     <span class="s1">&#39;Jaw Clenching&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">jaw_sig</span><span class="p">,</span> <span class="n">jaw_t</span><span class="p">),</span>
 <span class="p">}</span>
 
+
+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sampling rate: </span><span class="si">{</span><span class="n">fs</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span><span class="si">}</span><span class="s1"> samples, </span><span class="si">{</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">s, &#39;</span>
@@ -479,6 +481,14 @@ document.write(`
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling rate: 239.8 Hz
+Eye Blinks: 14162 samples, 59.1s, range: [-234.8, 236.3] µV
+Head Nodding: 14622 samples, 61.0s, range: [-1073.1, 559.6] µV
+Jaw Clenching: 15229 samples, 63.5s, range: [-660.2, 671.9] µV
+</pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="raw-eeg-all-three-artifacts">
@@ -497,7 +507,7 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Eye Blinks&#39;</span><span class="p">:</span> <span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="s1">&#39;Head Nodding&#39;</span><span class="p">:</span> <span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span> <span class="s1">&#39;Jaw Clenching&#39;</span><span class="p">:</span> <span class="s1">&#39;#9b59b6&#39;</span><span class="p">}</span>
 
@@ -516,6 +526,9 @@ document.write(`
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="_images/c2855d93c0d4f7cfffbcafc01bab33a2b1e2090898f0fff854d1cf166bef4902.png" src="_images/c2855d93c0d4f7cfffbcafc01bab33a2b1e2090898f0fff854d1cf166bef4902.png" />
+</div>
 </div>
 </section>
 <section id="wavelet-transform-soft-thresholding">
@@ -529,39 +542,247 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">wavelet_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wavelet soft thresholding using universal threshold (VisuShrink).&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># WAVELET THRESHOLDING — 6 Methods Compared</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+
+<span class="c1"># --- Method 1: Fixed Universal (VisuShrink) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_fixed</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
     <span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="mf">0.6745</span>
     <span class="n">threshold</span> <span class="o">=</span> <span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)))</span>
-    <span class="n">coeffs_thresh</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span>
-        <span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">coeffs_thresh</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
 
-<span class="c1"># Apply WT to all three</span>
-<span class="n">wt_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># --- Method 2: Per-Level Adaptive ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_perlevel</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">sigma_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">/</span> <span class="mf">0.6745</span>
+        <span class="n">thresh_j</span> <span class="o">=</span> <span class="n">sigma_j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">thresh_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="c1"># --- Method 3: Level-Dependent Scaling (alpha_j) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_scaled</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>  <span class="c1"># D5→D1: low freq gets gentle threshold</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">alphas</span><span class="p">):</span>
+        <span class="n">sigma_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="o">/</span> <span class="mf">0.6745</span>
+        <span class="n">thresh_j</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">sigma_j</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)))</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">thresh_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="c1"># --- Method 4: BayesShrink ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_bayes</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="mf">0.6745</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">sigma_d2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">sigma_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">sigma_d2</span> <span class="o">-</span> <span class="n">sigma_n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">thresh_j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">))</span> <span class="k">if</span> <span class="n">sigma_x</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">sigma_n</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sigma_x</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">thresh_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="c1"># --- Method 5: NeighBlock ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">neighblock_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">block_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">block_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">block_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)))</span>
+    <span class="n">thresh</span> <span class="o">=</span> <span class="n">sigma_n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
+    <span class="n">d_out</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">block_size</span><span class="p">):</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">block_size</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+        <span class="n">block_energy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">block</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">block_energy</span> <span class="o">&lt;=</span> <span class="n">thresh</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">block</span><span class="p">)):</span>
+            <span class="n">d_out</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">thresh</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">block</span><span class="p">)))</span> <span class="o">/</span> <span class="n">block_energy</span><span class="p">)</span>
+            <span class="n">d_out</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">block</span> <span class="o">*</span> <span class="n">factor</span>
+    <span class="k">return</span> <span class="n">d_out</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_neighblock</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">sigma_n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">coeffs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="mf">0.6745</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighblock_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="c1"># --- Method 6: Time-Adaptive (Windowed) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">time_adaptive_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">window_size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">window_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">N</span> <span class="o">//</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">d_out</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">half_win</span> <span class="o">=</span> <span class="n">window_size</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">half_win</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">half_win</span><span class="p">)</span>
+        <span class="n">local</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+        <span class="n">sigma_local</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">local</span><span class="p">))</span> <span class="o">/</span> <span class="mf">0.6745</span>
+        <span class="n">thresh_local</span> <span class="o">=</span> <span class="n">sigma_local</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">local</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">thresh_local</span><span class="p">:</span>
+            <span class="n">d_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">d_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">thresh_local</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d_out</span>
+
+<span class="c1"># --- Method 7: SURE (Stein&#39;s Unbiased Risk Estimate) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sure_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the optimal threshold minimizing SURE risk.&quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">d_sorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">d</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">risks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">thresh2</span> <span class="o">=</span> <span class="n">d_sorted</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># Number of coefficients below threshold</span>
+        <span class="n">n_below</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="c1"># SURE risk formula</span>
+        <span class="n">risks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n_below</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">d_sorted</span><span class="p">,</span> <span class="n">thresh2</span><span class="p">)))</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="n">best_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">risks</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">d_sorted</span><span class="p">[</span><span class="n">best_idx</span><span class="p">])</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_sure</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">thresh_j</span> <span class="o">=</span> <span class="n">sure_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pywt</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">thresh_j</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;soft&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wt_timeadapt</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="o">=</span><span class="s1">&#39;db4&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">coeffs</span> <span class="o">=</span> <span class="n">pywt</span><span class="o">.</span><span class="n">wavedec</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="p">[</span><span class="n">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">coeffs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">ct</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_adaptive_threshold</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">pywt</span><span class="o">.</span><span class="n">waverec</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">wavelet</span><span class="p">)[:</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">)]</span>
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># APPLY ALL METHODS TO ALL THREE ARTIFACTS</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="n">wt_methods</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Fixed Universal&#39;</span><span class="p">:</span>       <span class="n">wt_fixed</span><span class="p">,</span>
+    <span class="s1">&#39;Per-Level Adaptive&#39;</span><span class="p">:</span>    <span class="n">wt_perlevel</span><span class="p">,</span>
+    <span class="s1">&#39;Level-Dep Scaling (α)&#39;</span><span class="p">:</span> <span class="n">wt_scaled</span><span class="p">,</span>
+    <span class="s1">&#39;BayesShrink&#39;</span><span class="p">:</span>           <span class="n">wt_bayes</span><span class="p">,</span>
+    <span class="s1">&#39;SURE&#39;</span><span class="p">:</span>                  <span class="n">wt_sure</span><span class="p">,</span>
+    <span class="s1">&#39;NeighBlock&#39;</span><span class="p">:</span>            <span class="n">wt_neighblock</span><span class="p">,</span>
+    <span class="s1">&#39;Time-Adaptive&#39;</span><span class="p">:</span>         <span class="n">wt_timeadapt</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">method_colors_wt</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Fixed Universal&#39;</span><span class="p">:</span>       <span class="s1">&#39;#7f8c8d&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Per-Level Adaptive&#39;</span><span class="p">:</span>    <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Level-Dep Scaling (α)&#39;</span><span class="p">:</span> <span class="s1">&#39;#9b59b6&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;BayesShrink&#39;</span><span class="p">:</span>           <span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SURE&#39;</span><span class="p">:</span>                  <span class="s1">&#39;#2c3e50&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NeighBlock&#39;</span><span class="p">:</span>            <span class="s1">&#39;#e67e22&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Time-Adaptive&#39;</span><span class="p">:</span>         <span class="s1">&#39;#1abc9c&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Store all results</span>
+<span class="n">wt_all_results</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">wt_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">wavelet_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+    <span class="n">wt_all_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">method_name</span><span class="p">,</span> <span class="n">method_fn</span> <span class="ow">in</span> <span class="n">wt_methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">wt_all_results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">method_fn</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
 
-<span class="c1"># Plot original vs denoised</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">wt_results</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;WT denoised&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> — Wavelet Denoised&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="c1"># Also store the Fixed Universal result for the comparison cell later</span>
+<span class="n">wt_results</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="p">:</span>
+    <span class="n">wt_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">wt_all_results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;Fixed Universal&#39;</span><span class="p">]</span>
 
-<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Wavelet Transform Soft Thresholding (db4, level=5)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># METRICS TABLE</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;Artifact&quot;</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Method&quot;</span><span class="si">:</span><span class="s1">&lt;25</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Energy Removed (%)&quot;</span><span class="si">:</span><span class="s1">&gt;20</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Corr w/ Original&quot;</span><span class="si">:</span><span class="s1">&gt;18</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">85</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">method_name</span> <span class="ow">in</span> <span class="n">wt_methods</span><span class="p">:</span>
+        <span class="n">recon</span> <span class="o">=</span> <span class="n">wt_all_results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">method_name</span><span class="p">]</span>
+        <span class="n">energy_removed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">recon</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">recon</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">method_name</span><span class="si">:</span><span class="s1">&lt;25</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">energy_removed</span><span class="si">:</span><span class="s1">&gt;18.1f</span><span class="si">}</span><span class="s1">% </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;18.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">85</span><span class="p">)</span>
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PLOT: For each artifact, show original + all 6 denoised methods</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">n_methods</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">wt_methods</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_methods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_methods</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Row 0: Original</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> — Original&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="c1"># Rows 1+: Each method</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="n">method_fn</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">wt_methods</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">recon</span> <span class="o">=</span> <span class="n">wt_all_results</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">method_name</span><span class="p">]</span>
+        <span class="n">energy_removed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">recon</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">recon</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">recon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">method_colors_wt</span><span class="p">[</span><span class="n">method_name</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">method_name</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s1">  |  r = </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">  |  Energy removed = </span><span class="si">{</span><span class="n">energy_removed</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> — Wavelet Thresholding Methods Comparison (db4, level=5)&#39;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Artifact           Method                      Energy Removed (%)   Corr w/ Original
+=====================================================================================
+Eye Blinks         Fixed Universal                          0.9%             0.9993
+Eye Blinks         Per-Level Adaptive                       5.5%             0.9751
+Eye Blinks         Level-Dep Scaling (α)                    4.9%             0.9818
+Eye Blinks         BayesShrink                              0.0%             1.0000
+Eye Blinks         SURE                                     0.0%             0.9999
+Eye Blinks         NeighBlock                               1.1%             0.9992
+Eye Blinks         Time-Adaptive                            5.5%             0.9754
+-------------------------------------------------------------------------------------
+Head Nodding       Fixed Universal                          0.4%             0.9998
+Head Nodding       Per-Level Adaptive                       5.1%             0.9883
+Head Nodding       Level-Dep Scaling (α)                    3.6%             0.9930
+Head Nodding       BayesShrink                              0.0%             1.0000
+Head Nodding       SURE                                     0.0%             1.0000
+Head Nodding       NeighBlock                               0.5%             0.9997
+Head Nodding       Time-Adaptive                            4.9%             0.9889
+-------------------------------------------------------------------------------------
+Jaw Clenching      Fixed Universal                          0.1%             1.0000
+Jaw Clenching      Per-Level Adaptive                       2.3%             0.9916
+Jaw Clenching      Level-Dep Scaling (α)                    1.8%             0.9958
+Jaw Clenching      BayesShrink                              0.0%             1.0000
+Jaw Clenching      SURE                                     0.0%             1.0000
+Jaw Clenching      NeighBlock                               0.1%             1.0000
+Jaw Clenching      Time-Adaptive                            2.5%             0.9900
+-------------------------------------------------------------------------------------
+</pre></div>
+</div>
+<img alt="_images/08544ff998c3b0e888a882c2f50cbc66ea8216f40613c19b7d2092eab28711e6.png" src="_images/08544ff998c3b0e888a882c2f50cbc66ea8216f40613c19b7d2092eab28711e6.png" />
+<img alt="_images/7d21b367b05dbb1b570f8e1c8e87f8155b0c3e1d3f96543597239d31f36d905a.png" src="_images/7d21b367b05dbb1b570f8e1c8e87f8155b0c3e1d3f96543597239d31f36d905a.png" />
+<img alt="_images/993692c484bb9892d0616f9655f08d3d0151b575ae957b2fa16e5867c1b199d0.png" src="_images/993692c484bb9892d0616f9655f08d3d0151b575ae957b2fa16e5867c1b199d0.png" />
+</div>
 </div>
 </section>
 <section id="emd-empirical-mode-decomposition">
@@ -575,25 +796,91 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">emd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kurtosis</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">r_frac</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">r_frac</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">N</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_count</span><span class="p">(</span><span class="n">tl</span><span class="p">):</span>
+        <span class="n">templates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">sliding_window_view</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tl</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">templates</span><span class="p">)):</span>
+            <span class="n">dists</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">templates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">templates</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dists</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="o">=</span> <span class="n">_count</span><span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">_count</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">B</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">A</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">A</span> <span class="o">/</span> <span class="n">B</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">emd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EMD decomposition, reconstruct by removing first n_remove IMFs.&quot;&quot;&quot;</span>
-    <span class="n">emd</span> <span class="o">=</span> <span class="n">EMD</span><span class="p">()</span>
-    <span class="n">imfs</span> <span class="o">=</span> <span class="n">emd</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">emd_obj</span> <span class="o">=</span> <span class="n">EMD</span><span class="p">()</span>
+    <span class="n">imfs</span> <span class="o">=</span> <span class="n">emd_obj</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">reconstructed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">n_remove</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">imfs</span><span class="p">,</span> <span class="n">reconstructed</span>
 
+<span class="n">kurt_threshold</span> <span class="o">=</span> <span class="mf">3.0</span>  <span class="c1"># IMFs with |kurtosis| &gt; this are flagged as artifact</span>
+
 <span class="n">emd_results</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">emd_imfs_all</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">imfs</span><span class="p">,</span> <span class="n">recon</span> <span class="o">=</span> <span class="n">emd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
-    <span class="n">emd_imfs_all</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">imfs</span>
-    <span class="n">emd_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">recon</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1"> IMFs extracted&#39;</span><span class="p">)</span>
+<span class="n">emd_keep_masks</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="c1"># Plot IMFs for each artifact</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">imfs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">emd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">emd_imfs_all</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">imfs</span>
+    <span class="n">n_imfs</span> <span class="o">=</span> <span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Compute metrics</span>
+    <span class="n">entropies</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample_entropy</span><span class="p">(</span><span class="n">imf</span><span class="p">[:</span><span class="mi">300</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">]</span>
+    <span class="n">kurts</span> <span class="o">=</span> <span class="p">[</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">imf</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">]</span>
+
+    <span class="c1"># Kurtosis-based rejection</span>
+    <span class="n">kurts_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kurts</span><span class="p">)</span>
+    <span class="n">keep_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">kurts_arr</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">kurt_threshold</span>
+    <span class="n">emd_keep_masks</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">keep_mask</span>
+
+    <span class="c1"># Reconstruct using only kept IMFs</span>
+    <span class="n">reconstructed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">keep_mask</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">emd_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">reconstructed</span>
+
+    <span class="c1"># ── Print table ──────────────────────────────────────────────────</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">  (</span><span class="si">{</span><span class="n">n_imfs</span><span class="si">}</span><span class="s1"> IMFs, kurtosis threshold = </span><span class="si">{</span><span class="n">kurt_threshold</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;=&quot;</span><span class="o">*</span><span class="mi">60</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">):</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="s2">&quot;KEEP&quot;</span> <span class="k">if</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;REJECT&quot;</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;IMF&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Sample Entropy&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">entropies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Kurtosis&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">kurts_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Decision&#39;</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="n">removed_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="n">kept_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_imfs</span><span class="p">)</span> <span class="k">if</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Removed IMFs: </span><span class="si">{</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">removed_ids</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">removed_ids</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Kept IMFs:    </span><span class="si">{</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kept_ids</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PLOT IMFs — coloured by keep/reject</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
 <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">imfs</span> <span class="o">=</span> <span class="n">emd_imfs_all</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-    <span class="n">n_imfs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># show max 8</span>
+    <span class="n">keep_mask</span> <span class="o">=</span> <span class="n">emd_keep_masks</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">n_imfs</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">imfs</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">8</span><span class="p">)</span>
+
+    <span class="n">kurts_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">kurtosis</span><span class="p">(</span><span class="n">imf</span><span class="p">)</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">])</span>
+    <span class="n">entropies</span> <span class="o">=</span> <span class="p">[</span><span class="n">sample_entropy</span><span class="p">(</span><span class="n">imf</span><span class="p">[:</span><span class="mi">300</span><span class="p">])</span> <span class="k">for</span> <span class="n">imf</span> <span class="ow">in</span> <span class="n">imfs</span><span class="p">]</span>
+
     <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">1.8</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_imfs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -604,19 +891,138 @@ document.write(`
         <span class="n">f_psd</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">welch</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
         <span class="n">dom_freq</span> <span class="o">=</span> <span class="n">f_psd</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">psd</span><span class="p">)]</span>
         <span class="n">energy_pct</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">  |  </span><span class="si">{</span><span class="n">dom_freq</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  </span><span class="si">{</span><span class="n">energy_pct</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span>
-                            <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+        <span class="n">is_artifact</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#e74c3c&#39;</span> <span class="k">if</span> <span class="n">is_artifact</span> <span class="k">else</span> <span class="s1">&#39;teal&#39;</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;REJECT&#39;</span> <span class="k">if</span> <span class="n">is_artifact</span> <span class="k">else</span> <span class="s1">&#39;KEEP&#39;</span>
+
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">imfs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;IMF </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">  |  </span><span class="si">{</span><span class="n">dom_freq</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Hz  |  </span><span class="si">{</span><span class="n">energy_pct</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%  |  &#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;Kurt=</span><span class="si">{</span><span class="n">kurts_arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">  SampEn=</span><span class="si">{</span><span class="n">entropies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">  [</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
         <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;EMD — </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;EMD — </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> (red = artifact, teal = kept)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PLOT: Original vs Cleaned for each artifact</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">recon</span> <span class="o">=</span> <span class="n">emd_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">keep_mask</span> <span class="o">=</span> <span class="n">emd_keep_masks</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">kept_ids</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_mask</span><span class="p">))</span> <span class="k">if</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">removed_ids</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">keep_mask</span><span class="p">))</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_mask</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">recon</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">energy_removed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">recon</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">recon</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;EMD cleaned&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">  |  Removed IMF: </span><span class="si">{</span><span class="n">removed_ids</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">removed_ids</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;none&quot;</span><span class="si">}</span><span class="s1">  |  &#39;</span>
+        <span class="sa">f</span><span class="s1">&#39;r = </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">  |  Energy removed = </span><span class="si">{</span><span class="n">energy_removed</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">,</span>
+        <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;EMD Artifact Rejection (Kurtosis-based)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="c1"># PLOT: Removed components</span>
+<span class="c1"># ═══════════════════════════════════════════════════════════════════════</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">removed</span> <span class="o">=</span> <span class="n">sig</span> <span class="o">-</span> <span class="n">emd_results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">removed</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> — Removed Component&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;µV&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;EMD — Removed Artifact Components&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>============================================================
+  Eye Blinks  (11 IMFs, kurtosis threshold = 3.0)
+============================================================
+   IMF Sample Entropy Kurtosis Decision
+ IMF 1         0.7472   1.5909     KEEP
+ IMF 2         0.6493   5.7855   REJECT
+ IMF 3         0.4762   8.7191   REJECT
+ IMF 4         0.4106   4.3207   REJECT
+ IMF 5         0.1033   3.9558   REJECT
+ IMF 6         0.0299   2.0816     KEEP
+ IMF 7         0.0124   1.4403     KEEP
+ IMF 8         0.0117   0.9788     KEEP
+ IMF 9         0.0044  -0.7330     KEEP
+IMF 10         0.0054  -1.0652     KEEP
+IMF 11         0.0035  -0.4127     KEEP
+
+Removed IMFs: 2,3,4,5
+Kept IMFs:    1,6,7,8,9,10,11
+
+============================================================
+  Head Nodding  (12 IMFs, kurtosis threshold = 3.0)
+============================================================
+   IMF Sample Entropy Kurtosis Decision
+ IMF 1         0.5806  45.6429   REJECT
+ IMF 2         0.5745  37.0536   REJECT
+ IMF 3         0.5313  22.4757   REJECT
+ IMF 4         0.5055  10.3432   REJECT
+ IMF 5         0.2955   9.9050   REJECT
+ IMF 6         0.1107   6.4015   REJECT
+ IMF 7         0.0312   3.2071   REJECT
+ IMF 8         0.0180   2.6187     KEEP
+ IMF 9         0.0046   0.1526     KEEP
+IMF 10         0.0065  -0.0965     KEEP
+IMF 11         0.0109   0.2797     KEEP
+IMF 12         0.0075  -1.5940     KEEP
+
+Removed IMFs: 1,2,3,4,5,6,7
+Kept IMFs:    8,9,10,11,12
+
+============================================================
+  Jaw Clenching  (11 IMFs, kurtosis threshold = 3.0)
+============================================================
+   IMF Sample Entropy Kurtosis Decision
+ IMF 1         0.7158  17.6427   REJECT
+ IMF 2         0.7368  13.4867   REJECT
+ IMF 3         0.5866  12.4319   REJECT
+ IMF 4         0.4213  12.4995   REJECT
+ IMF 5         0.1808   1.8505     KEEP
+ IMF 6         0.1134   0.9264     KEEP
+ IMF 7         0.0103   0.1646     KEEP
+ IMF 8         0.0106  -0.7108     KEEP
+ IMF 9         0.0054  -0.6457     KEEP
+IMF 10         0.0104  -0.8203     KEEP
+IMF 11         0.0035  -1.0683     KEEP
+
+Removed IMFs: 1,2,3,4
+Kept IMFs:    5,6,7,8,9,10,11
+</pre></div>
+</div>
+<img alt="_images/bda886b687b03eb2d2e209b28bfe9541bae09be44c40f01ad62dad4a7e5e89b8.png" src="_images/bda886b687b03eb2d2e209b28bfe9541bae09be44c40f01ad62dad4a7e5e89b8.png" />
+<img alt="_images/116e7626099d91965b527b0243fbd7751dc09d778d899a3459d3f0d5711151ed.png" src="_images/116e7626099d91965b527b0243fbd7751dc09d778d899a3459d3f0d5711151ed.png" />
+<img alt="_images/999a6ed45a59cd74369ac195ccfc464917801fa7b3c727451622ae7b3210a239.png" src="_images/999a6ed45a59cd74369ac195ccfc464917801fa7b3c727451622ae7b3210a239.png" />
+<img alt="_images/4c815440da299e4cbc09626a584b2cb24e9faef1e7170fe2419102e0bff7cedb.png" src="_images/4c815440da299e4cbc09626a584b2cb24e9faef1e7170fe2419102e0bff7cedb.png" />
+<img alt="_images/557bb15298a827ba72c6a336c8ce0121eec666aeacfc6480927615b832e3eda7.png" src="_images/557bb15298a827ba72c6a336c8ce0121eec666aeacfc6480927615b832e3eda7.png" />
+</div>
 </div>
 </section>
 <section id="eemd-ensemble-emd">
@@ -630,7 +1036,7 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">eemd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">eemd_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;EEMD decomposition, reconstruct by removing first n_remove IMFs.&quot;&quot;&quot;</span>
     <span class="n">eemd</span> <span class="o">=</span> <span class="n">EEMD</span><span class="p">(</span><span class="n">trials</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">noise_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
     <span class="n">imfs</span> <span class="o">=</span> <span class="n">eemd</span><span class="o">.</span><span class="n">eemd</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
@@ -672,22 +1078,34 @@ document.write(`
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eye Blinks: 13 IMFs extracted
+Head Nodding: 13 IMFs extracted
+Jaw Clenching: 14 IMFs extracted
+</pre></div>
+</div>
+<img alt="_images/1b63a1e3d371e77c2879aff518ea1a74e3d994f415ae8ca66c7741bdadf2729f.png" src="_images/1b63a1e3d371e77c2879aff518ea1a74e3d994f415ae8ca66c7741bdadf2729f.png" />
+<img alt="_images/1dcd65c2d3fc9ae28d36dc73c345af5fc047ed98eb517cd479d298f7d20015e9.png" src="_images/1dcd65c2d3fc9ae28d36dc73c345af5fc047ed98eb517cd479d298f7d20015e9.png" />
+<img alt="_images/ed127bd1b5c10ddf874e2f52871dbc31feb9dd47d8a039d91afa8eac5f7d144b.png" src="_images/ed127bd1b5c10ddf874e2f52871dbc31feb9dd47d8a039d91afa8eac5f7d144b.png" />
+</div>
 </div>
 </section>
 <section id="ceemdan-complete-ensemble-emd-with-adaptive-noise">
 <h2>6. CEEMDAN — Complete Ensemble EMD with Adaptive Noise<a class="headerlink" href="#ceemdan-complete-ensemble-emd-with-adaptive-noise" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <p>CEEMDAN adds adaptive noise at <strong>each decomposition stage</strong> (not just once), giving better reconstruction and less residual noise than EEMD.</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ceemdan_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ceemdan_denoise</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">n_remove</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CEEMDAN decomposition, reconstruct by removing first n_remove IMFs.&quot;&quot;&quot;</span>
-    <span class="n">ceemdan</span> <span class="o">=</span> <span class="n">CEEMDAN</span><span class="p">(</span><span class="n">trials</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">ceemdan</span> <span class="o">=</span> <span class="n">CEEMDAN</span><span class="p">(</span><span class="n">trials</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">ceemdan</span><span class="o">.</span><span class="n">noise_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">ceemdan</span><span class="o">.</span><span class="n">processes</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># avoid multiprocessing memory issue</span>
     <span class="n">imfs</span> <span class="o">=</span> <span class="n">ceemdan</span><span class="o">.</span><span class="n">ceemdan</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">reconstructed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">imfs</span><span class="p">[</span><span class="n">n_remove</span><span class="p">:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">imfs</span><span class="p">,</span> <span class="n">reconstructed</span>
@@ -726,6 +1144,16 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eye Blinks: 13 IMFs extracted
+Head Nodding: 11 IMFs extracted
+Jaw Clenching: 12 IMFs extracted
+</pre></div>
+</div>
+<img alt="_images/da45e645cb2248b532406f3adcd9bb60ad853fcf807af81817f264a5d06db049.png" src="_images/da45e645cb2248b532406f3adcd9bb60ad853fcf807af81817f264a5d06db049.png" />
+<img alt="_images/aed2c1e6d7ade2aa6e2ae501654e51468f8906e907468cead5737c1240566069.png" src="_images/aed2c1e6d7ade2aa6e2ae501654e51468f8906e907468cead5737c1240566069.png" />
+<img alt="_images/648153c1c01218f7663b4db14adb785f197d596fb4dec9d9267484db5b6dd4dd.png" src="_images/648153c1c01218f7663b4db14adb785f197d596fb4dec9d9267484db5b6dd4dd.png" />
+</div>
 </details>
 </div>
 </section>
@@ -733,14 +1161,14 @@ document.write(`
 <h2>7. VMD — Variational Mode Decomposition<a class="headerlink" href="#vmd-variational-mode-decomposition" title="Permalink to this heading">#</a></h2>
 <hr class="docutils" />
 <p>VMD is optimization-based — we specify <strong>K=5</strong> modes targeting the main EEG bands. We reconstruct by removing mode 1 (highest center frequency, typically artifact/noise).</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell tag_hide-input tag_hide-cell docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mi">2000</span>
 <span class="n">tau</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">DC</span> <span class="o">=</span> <span class="mi">0</span>
@@ -800,6 +1228,16 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eye Blinks: 5 modes, center freqs = [&#39;-244.9+0.1j&#39;, &#39;-190.9+0.0j&#39;, &#39;-189.3+0.0j&#39;, &#39;-15.3+0.0j&#39;, &#39;580.2-0.1j&#39;]
+Head Nodding: 5 modes, center freqs = [&#39;-933.9+0.2j&#39;, &#39;-897.8+0.2j&#39;, &#39;97.6-0.0j&#39;, &#39;255.3-0.1j&#39;, &#39;3500.7-0.8j&#39;]
+Jaw Clenching: 5 modes, center freqs = [&#39;-11067.8+2.3j&#39;, &#39;-906.2+0.2j&#39;, &#39;-719.2+0.1j&#39;, &#39;645.2-0.1j&#39;, &#39;15704.1-3.2j&#39;]
+</pre></div>
+</div>
+<img alt="_images/5d334de621208c379e6276bc6b649c55af0634096ce595960eb06626e8a0ed9d.png" src="_images/5d334de621208c379e6276bc6b649c55af0634096ce595960eb06626e8a0ed9d.png" />
+<img alt="_images/390a1f41a018c7bdf9fe10366e1fb83c65b3e37ee1b6a7478b2710a72db38bf7.png" src="_images/390a1f41a018c7bdf9fe10366e1fb83c65b3e37ee1b6a7478b2710a72db38bf7.png" />
+<img alt="_images/4c983fe2d3b6fe643fec12b102a8a255efe97a1ab5551a7c257684f892c0fd6b.png" src="_images/4c983fe2d3b6fe643fec12b102a8a255efe97a1ab5551a7c257684f892c0fd6b.png" />
+</div>
 </details>
 </div>
 </section>
@@ -814,7 +1252,7 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">method_colors</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">method_colors</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;WT&#39;</span><span class="p">:</span>      <span class="s1">&#39;#3498db&#39;</span><span class="p">,</span>
     <span class="s1">&#39;EMD&#39;</span><span class="p">:</span>     <span class="s1">&#39;#e67e22&#39;</span><span class="p">,</span>
     <span class="s1">&#39;EEMD&#39;</span><span class="p">:</span>    <span class="s1">&#39;#2ecc71&#39;</span><span class="p">,</span>
@@ -860,6 +1298,11 @@ document.write(`
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<img alt="_images/99ace5844a2b2a532d4055aa7e0b323c6a56089fccefd232c27b5c124a44cec6.png" src="_images/99ace5844a2b2a532d4055aa7e0b323c6a56089fccefd232c27b5c124a44cec6.png" />
+<img alt="_images/a1a407caef962c948381dfa201313bc7ef51b8812e92ec7a9c6e6313cdae76d5.png" src="_images/a1a407caef962c948381dfa201313bc7ef51b8812e92ec7a9c6e6313cdae76d5.png" />
+<img alt="_images/1d26a13ea52ca1b42225612978dfb7480f0c1f9fa4c1fc8996f4f216af989344.png" src="_images/1d26a13ea52ca1b42225612978dfb7480f0c1f9fa4c1fc8996f4f216af989344.png" />
+</div>
 </div>
 </section>
 <section id="quantitative-comparison">
@@ -873,7 +1316,7 @@ document.write(`
 <span class="expanded">Hide code cell source</span>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;Artifact&quot;</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Method&quot;</span><span class="si">:</span><span class="s1">&lt;10</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Energy Removed (%)&quot;</span><span class="si">:</span><span class="s1">&gt;20</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Correlation&quot;</span><span class="si">:</span><span class="s1">&gt;14</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;Artifact&quot;</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Method&quot;</span><span class="si">:</span><span class="s1">&lt;10</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Energy Removed (%)&quot;</span><span class="si">:</span><span class="s1">&gt;20</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Correlation&quot;</span><span class="si">:</span><span class="s1">&gt;14</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">65</span><span class="p">)</span>
 
 <span class="n">all_methods</span> <span class="o">=</span> <span class="p">{</span>
@@ -897,6 +1340,30 @@ document.write(`
 </div>
 </div>
 </details>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Artifact           Method       Energy Removed (%)    Correlation
+=================================================================
+Eye Blinks         WT                        0.9%         0.9993
+Eye Blinks         EMD                       0.8%         0.9958
+Eye Blinks         EEMD                    -21.8%         0.9079
+Eye Blinks         CEEMDAN                   0.1%         0.9998
+Eye Blinks         VMD                       2.1%         0.9962
+-----------------------------------------------------------------
+Head Nodding       WT                        0.4%         0.9998
+Head Nodding       EMD                       0.7%         0.9964
+Head Nodding       EEMD                    -48.0%         0.8202
+Head Nodding       CEEMDAN                   0.4%         0.9983
+Head Nodding       VMD                      76.1%         0.6480
+-----------------------------------------------------------------
+Jaw Clenching      WT                        0.1%         1.0000
+Jaw Clenching      EMD                       0.0%         0.9993
+Jaw Clenching      EEMD                     -6.6%         0.9666
+Jaw Clenching      CEEMDAN                   0.0%         0.9998
+Jaw Clenching      VMD                      59.3%         0.7664
+-----------------------------------------------------------------
+</pre></div>
+</div>
+</div>
 </div>
 <hr class="docutils" />
 <section id="references">
