@@ -356,8 +356,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eemd-ensemble-emd">5. EEMD — Ensemble EMD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceemdan-complete-ensemble-emd-with-adaptive-noise">6. CEEMDAN — Complete Ensemble EMD with Adaptive Noise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vmd-variational-mode-decomposition">7. VMD — Variational Mode Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-original-vs-all-reconstructed-signals">8. Comparison — Original vs All Reconstructed Signals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-comparison">9. Quantitative Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-original-vs-all-reconstructed-signals">8. Comparison — Original vs All Reconstructed Signals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
@@ -1081,12 +1080,12 @@ Kept IMFs:    5,6,7,8,9,10,11
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Eye Blinks: 13 IMFs extracted
 Head Nodding: 13 IMFs extracted
-Jaw Clenching: 14 IMFs extracted
+Jaw Clenching: 13 IMFs extracted
 </pre></div>
 </div>
-<img alt="_images/1b63a1e3d371e77c2879aff518ea1a74e3d994f415ae8ca66c7741bdadf2729f.png" src="_images/1b63a1e3d371e77c2879aff518ea1a74e3d994f415ae8ca66c7741bdadf2729f.png" />
-<img alt="_images/1dcd65c2d3fc9ae28d36dc73c345af5fc047ed98eb517cd479d298f7d20015e9.png" src="_images/1dcd65c2d3fc9ae28d36dc73c345af5fc047ed98eb517cd479d298f7d20015e9.png" />
-<img alt="_images/ed127bd1b5c10ddf874e2f52871dbc31feb9dd47d8a039d91afa8eac5f7d144b.png" src="_images/ed127bd1b5c10ddf874e2f52871dbc31feb9dd47d8a039d91afa8eac5f7d144b.png" />
+<img alt="_images/7e261a07b727e58e728724a5f0c5612b4229125d50e553bd1601d8707ef92981.png" src="_images/7e261a07b727e58e728724a5f0c5612b4229125d50e553bd1601d8707ef92981.png" />
+<img alt="_images/7b6868065dde9e0a1fee02b7c9f72540132e8a39f4ae5fcfbbe9024433d2309b.png" src="_images/7b6868065dde9e0a1fee02b7c9f72540132e8a39f4ae5fcfbbe9024433d2309b.png" />
+<img alt="_images/4bea0059def05b5a6533c7d0a2959588183ec8bd8dd92c0a9af202d7a6fa6bdc.png" src="_images/4bea0059def05b5a6533c7d0a2959588183ec8bd8dd92c0a9af202d7a6fa6bdc.png" />
 </div>
 </div>
 </section>
@@ -1299,70 +1298,9 @@ Jaw Clenching: 5 modes, center freqs = [&#39;-11067.8+2.3j&#39;, &#39;-906.2+0.2
 </div>
 </details>
 <div class="cell_output docutils container">
-<img alt="_images/99ace5844a2b2a532d4055aa7e0b323c6a56089fccefd232c27b5c124a44cec6.png" src="_images/99ace5844a2b2a532d4055aa7e0b323c6a56089fccefd232c27b5c124a44cec6.png" />
-<img alt="_images/a1a407caef962c948381dfa201313bc7ef51b8812e92ec7a9c6e6313cdae76d5.png" src="_images/a1a407caef962c948381dfa201313bc7ef51b8812e92ec7a9c6e6313cdae76d5.png" />
-<img alt="_images/1d26a13ea52ca1b42225612978dfb7480f0c1f9fa4c1fc8996f4f216af989344.png" src="_images/1d26a13ea52ca1b42225612978dfb7480f0c1f9fa4c1fc8996f4f216af989344.png" />
-</div>
-</div>
-</section>
-<section id="quantitative-comparison">
-<h2>9. Quantitative Comparison<a class="headerlink" href="#quantitative-comparison" title="Permalink to this heading">#</a></h2>
-<hr class="docutils" />
-<p>We compute the <strong>energy removed</strong> and <strong>correlation with original</strong> for each method on each artifact type. Higher energy removal suggests more aggressive artifact suppression; high correlation means the overall signal shape is preserved.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="s2">&quot;Artifact&quot;</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Method&quot;</span><span class="si">:</span><span class="s1">&lt;10</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Energy Removed (%)&quot;</span><span class="si">:</span><span class="s1">&gt;20</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="s2">&quot;Correlation&quot;</span><span class="si">:</span><span class="s1">&gt;14</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="mi">65</span><span class="p">)</span>
-
-<span class="n">all_methods</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;WT&#39;</span><span class="p">:</span> <span class="n">wt_results</span><span class="p">,</span>
-    <span class="s1">&#39;EMD&#39;</span><span class="p">:</span> <span class="n">emd_results</span><span class="p">,</span>
-    <span class="s1">&#39;EEMD&#39;</span><span class="p">:</span> <span class="n">eemd_results</span><span class="p">,</span>
-    <span class="s1">&#39;CEEMDAN&#39;</span><span class="p">:</span> <span class="n">ceemdan_results</span><span class="p">,</span>
-    <span class="s1">&#39;VMD&#39;</span><span class="p">:</span> <span class="n">vmd_results</span><span class="p">,</span>
-<span class="p">}</span>
-
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="n">artifacts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">method</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">all_methods</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">recon</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sig</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">recon</span><span class="p">))</span>
-        <span class="n">orig</span><span class="p">,</span> <span class="n">rec</span> <span class="o">=</span> <span class="n">sig</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">recon</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
-        <span class="n">energy_removed</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rec</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">orig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
-        <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">rec</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s1">&lt;18</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">method</span><span class="si">:</span><span class="s1">&lt;10</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">energy_removed</span><span class="si">:</span><span class="s1">&gt;18.1f</span><span class="si">}</span><span class="s1">% </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s1">&gt;14.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">65</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Artifact           Method       Energy Removed (%)    Correlation
-=================================================================
-Eye Blinks         WT                        0.9%         0.9993
-Eye Blinks         EMD                       0.8%         0.9958
-Eye Blinks         EEMD                    -21.8%         0.9079
-Eye Blinks         CEEMDAN                   0.1%         0.9998
-Eye Blinks         VMD                       2.1%         0.9962
------------------------------------------------------------------
-Head Nodding       WT                        0.4%         0.9998
-Head Nodding       EMD                       0.7%         0.9964
-Head Nodding       EEMD                    -48.0%         0.8202
-Head Nodding       CEEMDAN                   0.4%         0.9983
-Head Nodding       VMD                      76.1%         0.6480
------------------------------------------------------------------
-Jaw Clenching      WT                        0.1%         1.0000
-Jaw Clenching      EMD                       0.0%         0.9993
-Jaw Clenching      EEMD                     -6.6%         0.9666
-Jaw Clenching      CEEMDAN                   0.0%         0.9998
-Jaw Clenching      VMD                      59.3%         0.7664
------------------------------------------------------------------
-</pre></div>
-</div>
+<img alt="_images/a82cb92642127bf859d9e7bb22beca61982e29341ff5b9ab41b9e8d6aba2fb6e.png" src="_images/a82cb92642127bf859d9e7bb22beca61982e29341ff5b9ab41b9e8d6aba2fb6e.png" />
+<img alt="_images/12aa8b660e1a5f1ecbd3c53a955198556d931444ba354d3e82fa9363abdd412a.png" src="_images/12aa8b660e1a5f1ecbd3c53a955198556d931444ba354d3e82fa9363abdd412a.png" />
+<img alt="_images/f150539d4b14e609abce4089233ab572e9b7023b9737f289e3da1af54c8d697b.png" src="_images/f150539d4b14e609abce4089233ab572e9b7023b9737f289e3da1af54c8d697b.png" />
 </div>
 </div>
 <hr class="docutils" />
@@ -1442,8 +1380,7 @@ Jaw Clenching      VMD                      59.3%         0.7664
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eemd-ensemble-emd">5. EEMD — Ensemble EMD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ceemdan-complete-ensemble-emd-with-adaptive-noise">6. CEEMDAN — Complete Ensemble EMD with Adaptive Noise</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vmd-variational-mode-decomposition">7. VMD — Variational Mode Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-original-vs-all-reconstructed-signals">8. Comparison — Original vs All Reconstructed Signals</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantitative-comparison">9. Quantitative Comparison</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-original-vs-all-reconstructed-signals">8. Comparison — Original vs All Reconstructed Signals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
 </li>
